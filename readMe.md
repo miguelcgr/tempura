@@ -1,5 +1,4 @@
 
-
 # Tempura
 
 <br>
@@ -47,39 +46,32 @@ Time-bank: A platform where users can trade with services/skills using time (hou
 <br>
 
 
-
 ## Server Routes (Back-end):
 
 
 
-| **Method** | **Route**                  | **Description**                                              | Request  - Body                                              |
-| ---------- | -------------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| `GET`      | `/`                        | Main page route.  Renders home `index` view.                 |                                                              |
-| `GET`      | `/login`                   | Renders `login` form view.                                   |                                                              |
-| `POST`     | `/login`                   | Sends Login form data to the server.                         | { email, password }                                          |
-| `GET`      | `/signup`                  | Renders `signup` form view.                                  |                                                              |
-| `POST`     | `/signup`                  | Sends Sign Up info to the server and creates user in the DB. | {  email, password  }                                        |
-| `GET`      | `/private/edit-profile`    | Private route. Renders `edit-profile` form view.             |                                                              |
-| `POST`     | `/private/edit-profile`    | Private route. Sends edit-profile info to server and updates user in DB. | { email, password, [firstName], [lastName], [imageUrl], phoneNumber } |
-| `GET`      | `/private/create-service`  | Private route. Render the create services view.              |                                                              |
-| `POST`     | `/private/create-service/` | Private route. Each user can create a new service            | { name, service, location, category }                        |
-| `GET`      | `/private/edit-service`    | Private route. Each user can edit a service                  |                                                              |
-| `POST`     | `/private/edit-service`    | Private route. Each user can edit or delete a service        | {serviceID, }                                                |
-| `GET`      | `/services`                | Renders service results view.                                |                                                              |
-| `GET`      | `/services/details/:id`    | Render service details view for the particular service.      |                                                              |
-| `POST`     | `/services/details/:id`    | Sends service request and takerUser that requests            | {new swap with Service, takerUser, units, duration}          |
-| `GET`      | `/private/activity`        | Private route. Renders activity panel                        |                                                              |
-| `POST`     | `/private/activity`        | Private route. Sends confirmation (will provide service)     | {pending exchange , add userGiver}                           |
-| `GET`      | `/public/profile`          | Renders user's public profile                                |                                                              |
-|            |                            |                                                              |                                                              |
-|            |                            |                                                              |                                                              |
-|            |                            |                                                              |                                                              |
-|            |                            |                                                              |                                                              |
-|            |                            |                                                              |                                                              |
-|            |                            |                                                              |                                                              |
-|            |                            |                                                              |                                                              |
-|            |                            |                                                              |                                                              |
-
+| **Method** | **Route**                     | **Description**                                              | Request  - Body                                              |
+| ---------- | ----------------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| `GET`      | `/`                           | Main page route.  Renders home `index` view.                 |                                                              |
+| `GET`      | `/login`                      | Renders `login` form view.                                   |                                                              |
+| `POST`     | `/login`                      | Sends Login form data to the server.                         | { email, password }                                          |
+| `GET`      | `/signup`                     | Renders `signup` form view.                                  |                                                              |
+| `POST`     | `/signup`                     | Sends Sign Up info to the server and creates user in the DB. | {  email, password  }                                        |
+| `GET`      | `/private/edit-profile`       | Private route. Renders `edit-profile` form view.             |                                                              |
+| `POST`     | `/private/edit-profile`       | Private route. Sends edit-profile info to server and updates the current user. | { email, password, [firstName], [lastName], [imageUrl], phoneNumber } |
+| `GET`      | `/private/create-service`     | Private route. Render the create services view.              |                                                              |
+| `POST`     | `/private/create-service`     | Private route. Each user can create a new service            | { name, service, location, category }                        |
+| `GET`      | `/private/edit-service/:id`   | Private route. Each user can edit a service                  |                                                              |
+| `POST`     | `/private/edit-service/:id`   | Private route. Each user can edit a service                  | {serviceId }                                                 |
+| `POST`     | `/private/delete-service/:id` | Private route. Each user can delete a service                | {serviceId}                                                  |
+| `GET`      | `/services`                   | Renders service results view.                                |                                                              |
+| `GET`      | `/services/details/:id`       | Render service details view for the particular service.      |                                                              |
+| `POST`     | `/services/details/:id`       | Sends service request and takerUser that requests            | {service, takerUser, units}                                  |
+| `GET`      | `/private/activity`           | Private route. Renders activity panel                        |                                                              |
+| `POST`     | `/private/activity`           | Private route. Sends confirmation (will provide service)     | {user}                                                       |
+| `GET`      | `/public/profile/:id`         | Renders user's public profile by id                          |                                                              |
+|            |                               |                                                              |                                                              |
+|            |                               |                                                              |                                                              |
 
 
 
@@ -92,21 +84,23 @@ User model
 
 ```javascript
 {
-  name: String,
-  email: String,
-  phone: Number,    
-  balance: Number,   
-  location: String    
-  password: String,
-  services: [{}],
-  requests: [
-     asTaker:[{swaps}],
-     asGiver: [{swaps}],
-     toConfirm: [{}]
-  ],    
-  pendingActions: [],    
-  recordSwaps:[swaps],    
-  profilePic: img    
+  username: {type: String, required: true, unique: true}, 
+  fname: {type: String, required: true},
+  lname: {type: String, required: true},    
+  email: {type: String, required: true, unique: true},  
+  phone: {type: Number, required: true, unique: true},     
+  balance: {type: Number, default: 0},   
+  location: String,    
+  password: {type: String, required: true}, 
+  services: [{type: mongoose.Schema.Types.ObjectId, ref: 'Service'}],
+  swaps: [
+     asTaker:[{type: mongoose.Schema.Types.ObjectId, ref: 'Swap'}],
+     asGiver: [{type: mongoose.Schema.Types.ObjectId, ref: 'Swap'}],
+     pastSwaps:[{type: mongoose.Schema.Types.ObjectId, ref: 'Swap'}]
+     ],    
+  notifications: [{type: mongoose.Schema.Types.ObjectId, ref: 'Swap'}],      
+  profilePic: {type: String, default: 'imgurl.jpg'},
+  joinDate: {type: Date, default: Date.now}     
       
 }
 
@@ -118,13 +112,14 @@ Services model
 
 ```javascript
 {
-  name: String,  
-  description: String,
-  giverUser: String,
+  name: {type: String, required: true}   
+  description: {type: String, required: true} 
+  giverUser: {type: String, required: true} 
   location: String,
-  duration: Number,    
-  category: String,    
-  picture: [pics]
+  duration: Number,    //hours
+  category: {type: String, enum: ['Lessons','Construction & repair', 'Care','Digital services','Sports & Health','Food', 'Other'], default: 'Other' },  
+  picture: [{type: String, default: 'imgurl.jpg'}],
+  dateAdded: {type: Date, default: Date.now}   
 }
 
 ```
@@ -134,14 +129,14 @@ Swap model
 ```js
 
 {
- giverUser: _id (user),
-takerUser: _id (user),
-service: _id (service),
-swapDuration: duration * requested units,
-giverAccept: boolean,
-giverAcceptTime: Date,
-takerConfirmation: boolean,
-takerConfirmationTime: Date
+giverUser: { type: mongoose.Schema.Types.ObjectId, ref: 'User'},
+takerUser: { type: mongoose.Schema.Types.ObjectId, ref: 'User'},
+service: { type: mongoose.Schema.Types.ObjectId, ref: 'Service'},
+swapDuration: Number,    
+giverAccept: {type: Boolean, default: false},
+giverAcceptTime: {type: Date, default: undefined},   
+takerConfirmation: {type: Boolean, default: false},
+takerConfirmationTime: {type: Date, default: undefined}   
 }
 ```
 
@@ -153,7 +148,7 @@ takerConfirmationTime: Date
 
 ## Backlog
 
-[See the Trello board.](https://trello.com/b/Ni3giVKf/ironhackproject)
+https://trello.com/b/S21Ofvgg/tempura
 
 
 
@@ -169,7 +164,7 @@ takerConfirmationTime: Date
 
 The url to your repository and to your deployed project
 
-[Repository Link]()
+https://github.com/miguelcgr/tempura
 
 [Deploy Link]()
 
