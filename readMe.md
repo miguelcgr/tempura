@@ -64,7 +64,7 @@ Time-bank: A platform where users can trade with services/skills using time (hou
 | `GET`      | `/private/edit-service/:id`   | Private route. Each user can edit a service                  |                                                              |
 | `POST`     | `/private/edit-service/:id`   | Private route. Each user can edit a service                  | {serviceId }                                                 |
 | `POST`     | `/private/delete-service/:id` | Private route. Each user can delete a service                | {serviceId}                                                  |
-| `GET`      | `/services`                   | Renders service results view.                                |                                                              |
+| `GET`      | `/services/`                  | Renders service results view.                                |                                                              |
 | `GET`      | `/services/details/:id`       | Render service details view for the particular service.      |                                                              |
 | `POST`     | `/services/details/:id`       | Sends service request and takerUser that requests            | {service, takerUser, units}                                  |
 | `GET`      | `/private/activity`           | Private route. Renders activity panel                        |                                                              |
@@ -114,7 +114,7 @@ Services model
 {
   name: { type: String, required: true },
   description: { type: String, required: true },
-  giverUser: { type: String, required: true },
+  giverUser: { type: mongoose.Schema.Types.ObjectId, ref: 'User'},
   location: String,
   duration: Number, //hours
   category: {
