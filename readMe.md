@@ -93,11 +93,11 @@ User model
   location: String,    
   password: {type: String, required: true}, 
   services: [{type: mongoose.Schema.Types.ObjectId, ref: 'Service'}],
-  swaps: [
-     asTaker:[{type: mongoose.Schema.Types.ObjectId, ref: 'Swap'}],
-     asGiver: [{type: mongoose.Schema.Types.ObjectId, ref: 'Swap'}],
-     pastSwaps:[{type: mongoose.Schema.Types.ObjectId, ref: 'Swap'}]
-     ],    
+  swaps: {
+    asTaker: [{ type: mongoose.Schema.Types.ObjectId, ref: "Swap" }],
+    asGiver: [{ type: mongoose.Schema.Types.ObjectId, ref: "Swap" }],
+    pastSwaps: [{ type: mongoose.Schema.Types.ObjectId, ref: "Swap" }],
+  },    
   notifications: [{type: mongoose.Schema.Types.ObjectId, ref: 'Swap'}],      
   profilePic: {type: String, default: 'imgurl.jpg'},
   joinDate: {type: Date, default: Date.now}     
@@ -112,14 +112,26 @@ Services model
 
 ```javascript
 {
-  name: {type: String, required: true}   
-  description: {type: String, required: true} 
-  giverUser: {type: String, required: true} 
+  name: { type: String, required: true },
+  description: { type: String, required: true },
+  giverUser: { type: String, required: true },
   location: String,
-  duration: Number,    //hours
-  category: {type: String, enum: ['Lessons','Construction & repair', 'Care','Digital services','Sports & Health','Food', 'Other'], default: 'Other' },  
-  picture: [{type: String, default: 'imgurl.jpg'}],
-  dateAdded: {type: Date, default: Date.now}   
+  duration: Number, //hours
+  category: {
+    type: String,
+    enum: [
+      "Lessons",
+      "Construction & repair",
+      "Care",
+      "Digital services",
+      "Sports & Health",
+      "Food",
+      "Other",
+    ],
+    default: "Other",
+  },
+  picture: [{ type: String, default: "imgurl.jpg" }],
+  dateAdded: { type: Date, default: Date.now },
 }
 
 ```
