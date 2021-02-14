@@ -1,17 +1,21 @@
 require("dotenv").config();
 
-var createError = require("http-errors");
-var express = require("express");
-var path = require("path");
-var cookieParser = require("cookie-parser");
-var logger = require("morgan");
+const createError = require("http-errors");
+const express = require("express");
+const path = require("path");
+const cookieParser = require("cookie-parser");
+const logger = require("morgan");
 
-var indexRouter = require("./routes/index");
-var usersRouter = require("./routes/users-router");
-var authRouter = require("./routes/auth-router");
-var servicesRouter = require("./routes/services-router");
+const mongoose = require("mongoose");
+const session = require("express-session");
+const MongoStore = require("connect-mongo")(session);
 
-var app = express();
+const indexRouter = require("./routes/index");
+const usersRouter = require("./routes/users-router");
+const authRouter = require("./routes/auth-router");
+const servicesRouter = require("./routes/services-router");
+
+const app = express();
 
 require("./configs/db.config");
 
@@ -24,6 +28,19 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
+
+app.use(
+  session({
+    secret: process.env.SESSION_SECRET,
+    cookie: { maxAge: 3600000 * 24 }, // 24 hours
+    resave: true,
+    saveUninitialized: false,
+    store: new MongoStore({
+      mongooseConnection: mongoose.connection,
+      ttl: 60 * 60 * 24 * 7, // Time to live - 7 days (14 days - Default)
+    }),
+  })
+);
 
 app.use("/", indexRouter);
 app.use("/", authRouter);

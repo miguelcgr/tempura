@@ -3,6 +3,8 @@ require("dotenv").config();
 const mongoose = require("mongoose");
 const User = require("./../models/user.model");
 const Service = require("./../models/service.model");
+const bcrypt = require("bcrypt");
+const saltRounds = 10;
 
 const initialUsers = [
   {
@@ -92,6 +94,12 @@ mongoose
     return pr;
   })
   .then(() => {
+    initialUsers.forEach((user) => {
+      const salt = bcrypt.genSaltSync(saltRounds);
+      const hiddenPassword = bcrypt.hashSync(user.password, salt);
+      user.password = hiddenPassword;
+    });
+
     const pr = User.create(initialUsers);
     return pr;
   })
