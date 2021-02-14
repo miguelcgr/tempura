@@ -1,18 +1,45 @@
 <h1>signup</h1>
+
 <form action='/signup' method='POST'>
+
+<h2>Create a new user in Tempura</h2>
+
   <label for=''>Username</label>
-  <input type='text' name='username' minlength="5">
+  <input type='text' name='username' minlength="5" placeholder="miguel123">
 
   <label for=''>email</label>
-  <input type='email' name='email' minlength="5">
+  <input type='email' name='email' minlength="5" placeholder="miguel@tempura.org">
 
   <label for=''>Password</label>
   <input type='password' name='password' minlength="5">
 
-  <label for=''>Username</label>
-  <input type='text' name='username' minlength="5">
+  <label for=''>Phone</label>
+  <input type='text' name='phone' minlength="9" placeholder="+34612345678">
 
-  <button type='submit'>Submit</button>
+  <label for=''>Location</label>
+  <input type='text' name='location' minlength="4" placeholder="Poblenou">
+
+  <label for=''>Add profile picture</label>
+  <!-- <input type='file' name='profile-picture' > -->
+
+  <h2>Create a new service in Tempura</h2>
+
+  <label for=''>Service name</label>
+  <input type='text' name='service-name' minlength="3" placeholder="English lessons">
+
+  <label for=''>Service description</label>
+  <input type='text' name='service-description' minlength="3" placeholder="Give a brief explanation of the service">
+
+  <label for=''>Adds service pictures</label>
+  <!-- <input type='file' name='service-pictures' > -->
+
+  <label for=''>Service location</label>
+  <input type='text' name='service-location' minlength="3" placeholder="Poblenou">
+
+  <label for=''>Service duration in hours</label>
+  <input type='number' name='service-duration' value="1" placeholder="1">
+
+  <button type='submit'>Sign up</button>
 </form>
 
 {{#if errorMessage}}

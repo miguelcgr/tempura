@@ -16,33 +16,29 @@ router.get("/", (req, res, next) => res.render("index"));
 router.get("/login", (req, res, next) => res.render("login"));
 
 router.post("/login", (req, res, next) => {
-  const {username, password} = req.body;
+  const { username, password } = req.body;
   if (username === "" || password === "") {
     res.render("/login", errorMessage);
     return;
   }
-  User.findOne({username}) 
+  User.findOne({ username })
     .then((user) => {
-      if(!user) {
-        res.render('/login', errorMessage)
-        return
+      if (!user) {
+        res.render("/login", errorMessage);
+        return;
       }
-      const passwordCorrect = bcrypt.compareSync(password, user.password)
+      const passwordCorrect = bcrypt.compareSync(password, user.password);
       if (passwordCorrect) {
         req.session.currentUser = user;
-        res.redirect('/')
-      } else{
-        res.render('/login', errorMessage)
+        res.redirect("/");
+      } else {
+        res.render("/login", errorMessage);
       }
     })
     .catch((err) => {
       res.render("/signup", errorMessage);
     });
-
 });
-
-
-
 
 router.get("/signup", (req, res, next) => res.render("signup"));
 

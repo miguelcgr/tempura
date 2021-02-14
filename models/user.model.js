@@ -6,7 +6,7 @@ const userSchema = new Schema({
   fname: { type: String, required: true },
   lname: { type: String, required: true },
   email: { type: String, required: true, unique: true },
-  phone: { type: Number, required: true, unique: true },
+  phone: { type: String, required: true, unique: true },
   balance: { type: Number, default: 0 },
   location: String,
   password: { type: String, required: true },
