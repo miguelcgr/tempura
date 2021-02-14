@@ -5,12 +5,12 @@ const express = require("express");
 const path = require("path");
 const cookieParser = require("cookie-parser");
 const logger = require("morgan");
+const hbs = require("hbs");
 
 const mongoose = require("mongoose");
 const session = require("express-session");
 const MongoStore = require("connect-mongo")(session);
 
-const indexRouter = require("./routes/index");
 const usersRouter = require("./routes/users-router");
 const authRouter = require("./routes/auth-router");
 const servicesRouter = require("./routes/services-router");
@@ -22,6 +22,8 @@ require("./configs/db.config");
 // view engine setup
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "hbs");
+
+hbs.registerPartials(__dirname + "/views/partials");
 
 app.use(logger("dev"));
 app.use(express.json());
@@ -42,7 +44,6 @@ app.use(
   })
 );
 
-app.use("/", indexRouter);
 app.use("/", authRouter);
 // app.use("/users", usersRouter);
 // app.use("/services", servicesRouter);

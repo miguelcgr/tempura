@@ -12,7 +12,19 @@ const { isLoggedIn } = require("../util/middleware");
 const bcrypt = require("bcrypt");
 const saltRounds = 10;
 
-router.get("/", (req, res, next) => res.render("index"));
+router.get("/", (req, res, next) => {
+  let data;
+  if (req.session.currentUser) {
+    data = {
+      isLogNav: true,
+    };
+  } else {
+    data = {
+      isLogNav: false,
+    };
+  }
+  res.render("index", data);
+});
 
 router.get("/login", (req, res, next) => res.render("login"));
 
@@ -63,6 +75,7 @@ router.post("/signup", (req, res, next) => {
     User.create({ username: username, password: hiddenPassword })
       .then((user) => {
         req.session.currentUser = user;
+        //        res.render("index", { isLogNav: true });
         res.redirect("/");
       })
       .catch((err) => {
@@ -128,7 +141,7 @@ router.get("/logout", (req, res, next) => {
     if (err) {
       next(err);
     } else {
-      res.redirect("/login");
+      res.redirect("/");
     }
   });
 });
