@@ -101,10 +101,6 @@ mongoose
     initialServices.forEach((service) => {
       service.giverUser = users[Math.floor(Math.random() * users.length)]._id;
     });
-    // initialServices[0].giverUser = users[0]._id;
-    // initialServices[1].giverUser = users[0]._id;
-    // initialServices[2].giverUser = users[1]._id;
-    // initialServices[3].giverUser = users[1]._id;
 
     const pr = Service.create(initialServices);
     console.log(`${initialServices.length} services introduced in the DB.`);
