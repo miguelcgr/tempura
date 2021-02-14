@@ -9,6 +9,6 @@ function isLoggedIn (req, res, next) {
 
 
 
-modules.exports = {
+module.exports = {
     isLoggedIn
 }
