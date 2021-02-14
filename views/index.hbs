@@ -1,10 +1,14 @@
-<h1>HomePage</h1>
-
 {{> navbar this}}
+<main id="home">
+  <div>
 
-<form action='/search-results' method='POST'>
-  <label for=''>Search for services</label>
-  <input type='text' name='search' placeholder="English classes, Bicycle repairs, ...">
-  <button type='submit'>Submit</button>
-</form>
+    <h1>Tempura <br>
+      the time bank</h1>
 
+    <form action='/services' method='GET'>
+      <input type='text' name='search' placeholder="English classes, Bicycle repairs, ...">
+      <button type='submit'>Find services!</button>
+    </form>
+
+  </div>
+</main>

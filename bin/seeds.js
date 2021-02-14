@@ -30,7 +30,7 @@ const initialUsers = [
     fname: "Miguel",
     lname: "Calvo",
     email: "miguelcalvo@tempura.org",
-    phone: 612345678, 
+    phone: 612345678,
     balance: 10,
     location: "Montjuic",
     password: "miguel123",
@@ -54,14 +54,14 @@ const initialUsers = [
     password: "carlota123",
     services: [],
     swaps: {
-    asTaker: [],
-    asGiver: [],
-    pastSwaps: [],
+      asTaker: [],
+      asGiver: [],
+      pastSwaps: [],
     },
     notifications: [],
     joinDate: new Date(2018, 11, 22),
-    },
-    {
+  },
+  {
     username: "fedemuniente",
     fname: "Fede",
     lname: "Muniente",
@@ -72,14 +72,14 @@ const initialUsers = [
     password: "fede123",
     services: [],
     swaps: {
-    asTaker: [],
-    asGiver: [],
-    pastSwaps: [],
+      asTaker: [],
+      asGiver: [],
+      pastSwaps: [],
     },
     notifications: [],
     joinDate: new Date(2018, 11, 22),
-    },
-    {
+  },
+  {
     username: "clementvallat",
     fname: "Clement",
     lname: "Vallat",
@@ -90,14 +90,14 @@ const initialUsers = [
     password: "clement123",
     services: [],
     swaps: {
-    asTaker: [],
-    asGiver: [],
-    pastSwaps: [],
+      asTaker: [],
+      asGiver: [],
+      pastSwaps: [],
     },
     notifications: [],
     joinDate: new Date(2018, 11, 22),
-    },
-    {
+  },
+  {
     username: "davidcastejon",
     fname: "David",
     lname: "Castejon",
@@ -108,14 +108,14 @@ const initialUsers = [
     password: "david123",
     services: [],
     swaps: {
-    asTaker: [],
-    asGiver: [],
-    pastSwaps: [],
+      asTaker: [],
+      asGiver: [],
+      pastSwaps: [],
     },
     notifications: [],
     joinDate: new Date(2018, 11, 22),
-    },
-    {
+  },
+  {
     username: "sotidialeti",
     fname: "Soti",
     lname: "Dialeti",
@@ -126,14 +126,14 @@ const initialUsers = [
     password: "soti123",
     services: [],
     swaps: {
-    asTaker: [],
-    asGiver: [],
-    pastSwaps: [],
+      asTaker: [],
+      asGiver: [],
+      pastSwaps: [],
     },
     notifications: [],
     joinDate: new Date(2018, 11, 22),
-    },
-    {
+  },
+  {
     username: "annamazurek",
     fname: "Anna",
     lname: "Mazurek",
@@ -144,14 +144,14 @@ const initialUsers = [
     password: "fede123",
     services: [],
     swaps: {
-    asTaker: [],
-    asGiver: [],
-    pastSwaps: [],
+      asTaker: [],
+      asGiver: [],
+      pastSwaps: [],
     },
     notifications: [],
     joinDate: new Date(2018, 11, 22),
-    },
-    {
+  },
+  {
     username: "georgiaadams",
     fname: "Georgia",
     lname: "Adams",
@@ -162,14 +162,14 @@ const initialUsers = [
     password: "georgia123",
     services: [],
     swaps: {
-    asTaker: [],
-    asGiver: [],
-    pastSwaps: [],
+      asTaker: [],
+      asGiver: [],
+      pastSwaps: [],
     },
     notifications: [],
     joinDate: new Date(2018, 11, 22),
-    },
-    {
+  },
+  {
     username: "mattweber",
     fname: "Matt",
     lname: "Weber",
@@ -180,14 +180,14 @@ const initialUsers = [
     password: "matt123",
     services: [],
     swaps: {
-    asTaker: [],
-    asGiver: [],
-    pastSwaps: [],
+      asTaker: [],
+      asGiver: [],
+      pastSwaps: [],
     },
     notifications: [],
     joinDate: new Date(2018, 11, 22),
-    },
-    {
+  },
+  {
     username: "aleixbadia",
     fname: "Aleix",
     lname: "Badia",
@@ -198,15 +198,15 @@ const initialUsers = [
     password: "aleix123",
     services: [],
     swaps: {
-    asTaker: [],
-    asGiver: [],
-    pastSwaps: [],
+      asTaker: [],
+      asGiver: [],
+      pastSwaps: [],
     },
     notifications: [],
     joinDate: new Date(2018, 11, 22),
-    },
-    
-    {
+  },
+
+  {
     username: "arslanegharout",
     fname: "Arslane",
     lname: "Gharout",
@@ -217,14 +217,14 @@ const initialUsers = [
     password: "arslane23",
     services: [],
     swaps: {
-    asTaker: [],
-    asGiver: [],
-    pastSwaps: [],
+      asTaker: [],
+      asGiver: [],
+      pastSwaps: [],
     },
     notifications: [],
     joinDate: new Date(2018, 11, 22),
-    },
-    {
+  },
+  {
     username: "isabelmartinez",
     fname: "Isabel",
     lname: "Martinez",
@@ -235,14 +235,14 @@ const initialUsers = [
     password: "isabel123",
     services: [],
     swaps: {
-    asTaker: [],
-    asGiver: [],
-    pastSwaps: [],
+      asTaker: [],
+      asGiver: [],
+      pastSwaps: [],
     },
     notifications: [],
     joinDate: new Date(2018, 11, 22),
-    },
-    {
+  },
+  {
     username: "dimitrijdugan",
     fname: "Dimitrij",
     lname: "Dugan",
@@ -253,13 +253,13 @@ const initialUsers = [
     password: "dimitrij123",
     services: [],
     swaps: {
-    asTaker: [],
-    asGiver: [],
-    pastSwaps: [],
+      asTaker: [],
+      asGiver: [],
+      pastSwaps: [],
     },
     notifications: [],
     joinDate: new Date(2018, 11, 22),
-    },
+  },
 ];
 
 const initialServices = [
@@ -299,159 +299,145 @@ const initialServices = [
   },
   {
     name: "Pole dance class",
-    description:
-    "I am a world champion pole dancer, come elarn with me",
+    description: "I am a world champion pole dancer, come elarn with me",
     giverUser: "6026b09ada76808f8e5fe556",
     location: "Hospitalet",
     duration: 1,
     category: "Lessons",
-    },
-    {
+  },
+  {
     name: "Cow walking",
-    description:
-    "I can walk your cow when you are away",
+    description: "I can walk your cow when you are away",
     giverUser: "6026b09ada76808f8e5fe556",
     location: "Hospitalet",
     duration: 1,
     category: "Care",
-    },
-    {
+  },
+  {
     name: "Code review session",
-    description:
-    "I can share with you my coding knowledge",
+    description: "I can share with you my coding knowledge",
     giverUser: "6026b09ada76808f8e5fe556",
     location: "Sagrada Familia",
     duration: 1,
     category: "Digital services",
-    },
-    {
+  },
+  {
     name: "Wall painting session",
-    description:
-    "I can paint any wall any color",
+    description: "I can paint any wall any color",
     giverUser: "6026b09ada76808f8e5fe556",
     location: "Sagrada Familia",
     duration: 1,
     category: "Construction & repair",
-    },
-    {
+  },
+  {
     name: "Guitar Lessons",
-    description:
-    "Become the next Jimi Hendrix",
+    description: "Become the next Jimi Hendrix",
     giverUser: "6026b09ada76808f8e5fe556",
     location: "El Born",
     duration: 1,
     category: "Lessons",
-    },
-    {
+  },
+  {
     name: "French lessons",
     description:
-    "You will learn to speak French in no time with my  French lessons",
+      "You will learn to speak French in no time with my  French lessons",
     giverUser: "6026b09ada76808f8e5fe556",
     location: "El Born",
     duration: 1,
     category: "Lessons",
-    },
-    {
+  },
+  {
     name: "Text correction sessions",
     description:
-    "I have a degree in literature and can help you correct your texts",
+      "I have a degree in literature and can help you correct your texts",
     giverUser: "6026b09ada76808f8e5fe556",
-    location: "Arc de Triumf",
+    location: "Arc de Triomf",
     duration: 1,
     category: "Lessons",
-    },
-    {
+  },
+  {
     name: "Greek lessons",
     description:
-    "You will learn to speak Greek in no time with my  Greek lessons",
+      "You will learn to speak Greek in no time with my  Greek lessons",
     giverUser: "6026b09ada76808f8e5fe556",
-    location: "Gracia",
+    location: "Gràcia",
     duration: 1,
     category: "Lessons",
-    },
-    {
+  },
+  {
     name: "Ballet Lessons",
-    description:
-    "Become the next Billy Elliot with my ballet lessons",
+    description: "Become the next Billy Elliot with my ballet lessons",
     giverUser: "6026b09ada76808f8e5fe556",
-    location: "Gracia",
+    location: "Gràcia",
     duration: 1,
     category: "Lessons",
-    },
-    {
+  },
+  {
     name: "Ski training sessions",
     description:
-    "I am a qualified ski instructor and can teach how to ski or snowboard",
+      "I am a qualified ski instructor and can teach how to ski or snowboard",
     giverUser: "6026b09ada76808f8e5fe556",
-    location: "El Gotico",
+    location: "El Gòtic",
     duration: 1,
     category: "Lessons",
-    },
-    {
+  },
+  {
     name: "Piano Lessons",
-    description:
-    "Become the next Elton John",
+    description: "Become the next Elton John",
     giverUser: "6026b09ada76808f8e5fe556",
     location: "Marina",
     duration: 1,
     category: "Lessons",
-    },
-    {
+  },
+  {
     name: "Bakery Lessons",
-    description:
-    "I will teach you how to make all kinds of desserts",
+    description: "I will teach you how to make all kinds of desserts",
     giverUser: "6026b09ada76808f8e5fe556",
     location: "Marina",
     duration: 1,
     category: "Food",
-    },
-    
-    {
+  },
+
+  {
     name: "IKEA furniture installation",
-    description:
-    "I am very handy and can help you with your furniture",
+    description: "I am very handy and can help you with your furniture",
     giverUser: "6026b09ada76808f8e5fe556",
-    location: "Arc de Triumf",
+    location: "Arc de Triomf",
     duration: 1,
     category: "Construction & repair",
-    },
-    {
+  },
+  {
     name: "Dog walk",
-    description:
-    "I can take care of your best friend when you are away",
+    description: "I can take care of your best friend when you are away",
     giverUser: "6026b09ada76808f8e5fe556",
     location: "Terrassa",
     duration: 1,
     category: "Care",
-    },
-    {
+  },
+  {
     name: "Marketing consultancy",
-    description:
-    "Marketing help for your small business.",
+    description: "Marketing help for your small business.",
     giverUser: "6026b09ada76808f8e5fe556",
-    location: "Arc de Triumf",
+    location: "Arc de Triomf",
     duration: 1,
-    category: "Digital services
-    },
-    {
+    category: "Digital services",
+  },
+  {
     name: "Bicycle repair",
-    description:
-    "I am very handy and can help you with your bike",
+    description: "I am very handy and can help you with your bike",
     giverUser: "6026b09ada76808f8e5fe556",
-    location: "Arc de Triumf",
+    location: "Arc de Triomf",
     duration: 1,
     category: "Construction & repair",
-    },
-    {
+  },
+  {
     name: "House repairments",
-    description:
-    "I can help you with all kinds of house repairments",
+    description: "I can help you with all kinds of house repairments",
     giverUser: "6026b09ada76808f8e5fe556",
-    location: "Arc de Triumf",
+    location: "Arc de Triomf",
     duration: 1,
     category: "Construction & repair",
-    },
-  
+  },
 ];
 
 mongoose
@@ -466,6 +452,7 @@ mongoose
     return pr;
   })
   .then(() => {
+    console.log("Dropped previous DB");
     initialUsers.forEach((user) => {
       const salt = bcrypt.genSaltSync(saltRounds);
       const hiddenPassword = bcrypt.hashSync(user.password, salt);
@@ -483,10 +470,10 @@ mongoose
     });
 
     const pr = Service.create(initialServices);
-    console.log(`${initialServices.length} services introduced in the DB.`);
     return pr;
   })
   .then((createdServices) => {
+    console.log(`${initialServices.length} services introduced in the DB.`);
     mongoose.connection.close();
   })
   .catch((err) => console.error("Error connecting to mongo", err));

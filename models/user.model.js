@@ -3,10 +3,10 @@ const Schema = mongoose.Schema;
 
 const userSchema = new Schema({
   username: { type: String, required: true, unique: true },
-  fname: { type: String }, // required: true
-  lname: { type: String }, //required: true
-  email: { type: String, unique: true }, //required: true
-  phone: { type: String, unique: true }, // required: true
+  fname: { type: String, required: true },
+  lname: { type: String, required: true },
+  email: { type: String, unique: true, required: true },
+  phone: { type: String, unique: true, required: true },
   balance: { type: Number, default: 0 },
   location: String,
   password: { type: String, required: true },

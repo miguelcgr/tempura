@@ -1,3 +1,5 @@
+{{> navbar this}}
+
 <h1>signup</h1>
 
 <form action='/signup' method='POST'>
@@ -5,26 +7,25 @@
 <h2>Create a new user in Tempura</h2>
 
   <label for=''>Username</label>
-  <input type='text' name='username' minlength="5" placeholder="miguel123">
+  <input type='text' name='username' minlength="5" placeholder="miguel123" required>
 
   <label for=''>First Name</label>
-  <input type='text' name='fname' minlength="2" placeholder="Miguel">
+  <input type='text' name='fname' minlength="2" placeholder="Miguel" required>
 
   <label for=''>Last name</label>
-  <input type='text' name='lname' minlength="2" placeholder="López">
-
+  <input type='text' name='lname' minlength="2" placeholder="López" required>
 
   <label for=''>email</label>
-  <input type='email' name='email' minlength="5" placeholder="miguel@tempura.org">
+  <input type='email' name='email' minlength="5" placeholder="miguel@tempura.org" required>
 
   <label for=''>Password</label>
-  <input type='password' name='password' minlength="5">
+  <input type='password' name='password' minlength="5" required>
 
   <label for=''>Phone</label>
-  <input type='text' name='phone' minlength="9" placeholder="+34612345678">
+  <input type='text' name='phone' minlength="9" placeholder="+34612345678" required>
 
   <label for=''>Location</label>
-  <input type='text' name='location' minlength="4" placeholder="Poblenou">
+  <input type='text' name='location' minlength="4" placeholder="Poblenou" required>
 
   <label for=''>Add profile picture</label>
   <!-- <input type='file' name='profile-picture' > -->
