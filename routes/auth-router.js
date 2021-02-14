@@ -119,4 +119,19 @@ router.get("/user-profile-public", (req, res, next) => {
 //   res.render("activity-panel");
 // });
 
+
+// Destroys the existing session
+// GET     /auth/logout
+router.get('/logout', (req, res, next) => {
+  req.session.destroy((err) => {
+    if (err) {
+      next(err)
+    }
+    else {
+      res.redirect('/login')
+    }
+  })
+})
+
+
 module.exports = router;
