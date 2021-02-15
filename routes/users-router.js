@@ -22,9 +22,9 @@ function isLogNavFn(req) {
 
 // already in /users/
 
+//public profile
 usersRouter.get("/:id", (req, res, next) => {
   const userId = req.params.id;
-
   User.findById(userId)
   .populate('services')
     .then((user) => {
@@ -37,11 +37,9 @@ usersRouter.get("/:id", (req, res, next) => {
     .catch((err) => console.log("User not found"));
 });
 
-
+//private profile
 usersRouter.get("/my-profile", (req, res, next) => {
- 
-
-      const data = {
+       const data = {
         isLogNav: isLogNavFn(req),
         user: req.session,
       };

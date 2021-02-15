@@ -1,7 +1,6 @@
 
 {{> navbar isLogNav}}
 
-
 {{main id = "user-profile"}}
 <div class="wrap">
 <h1>{{user.fname}} {{user.lname}}</h1>
@@ -9,8 +8,7 @@
     <div>   
       <p>phone: {{user.phone}}</p>
       <p>location: {{user.location}}</p>
-      <p>balance: {{user.balance}}</p>
-
+   
       <p>Stats: {{user.swaps.length}}</p>
 
       <p>User since: {{user.joinDate}} </p>
@@ -23,6 +21,9 @@
 {{#each user.services}}
 <li>
  <a href="/services/{{this._id}}">{{this.name}}</a>
+ <p>{{this.description}}</p>
+  <a href="/services/{{this._id}}"><img src= {{this.picture}} alt="service pic"></a>
+
 </li>
 {{/each}}
 </ul>
