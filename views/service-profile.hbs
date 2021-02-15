@@ -1,1 +1,27 @@
-<h1>service profile public</h1>
+{{> navbar isLogNav}}
+
+<main id= "service-profile">
+<h1>{{service.name}}</h1>
+
+<img src={{service.picture.[0]}} alt="Service Picture">
+<p>Provided by: <a href="/users/{{service.giverUser._id}}">{{service.giverUser.fname}} {{service.giverUser.lname}}</a></p>
+<p>Location: {{service.location}}</p>
+<p>Duration: {{service.duration}} hours</p>
+<p>Category: {{service.category}}</p>
+<p>Date added: {{service.dateAddeed}}</p>
+<p>{{service.description}}</p>
+
+<br>
+<br>
+
+<strong>Ask {{service.giverUser.fname}} to provide {{service.name}}!</strong>
+
+<form action='/swaps/create' method='POST'>
+
+  <label for=''>Duration</label>
+  <input type='number' name='duration' value="{{service.duration}}" required>
+
+  <button type='submit'>Request this!</button>
+</form>
+
+</main>

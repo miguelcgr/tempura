@@ -17,13 +17,19 @@ nav {
   box-shadow: 0px 0px 10px #2e2e2e;
 }
 
+nav img {
+  height: 5vh;
+  width: auto;
+}
+
 nav ul {
   list-style: none;
   display: flex;
+  margin-right: 10px;
 }
 
 nav a {
-  margin-left: 15px;
+  margin-left: 20px;
   color: white;
   text-decoration: none;
 }
@@ -90,6 +96,16 @@ main a {
   height: 40px;
   border: 0px;
   border-radius: 3px;
+}
+
+#service-profile {
+  margin: 20px 0 0 20px;
+}
+
+#service-profile img {
+  width: 300px;
+  height: auto;
+  margin: 20px 0;
 }
 
 footer {

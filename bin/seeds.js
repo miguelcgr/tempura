@@ -269,6 +269,8 @@ const initialServices = [
     giverUser: "6026b09ada76808f8e5fe556",
     location: "Sants",
     duration: 1,
+    picture:
+      "https://www.publicdomainpictures.net/pictures/300000/velka/empty-white-room.jpg",
     category: "Construction & repair",
   },
   {
@@ -277,6 +279,8 @@ const initialServices = [
     giverUser: "6026b09ada76808f8e5fe556",
     location: "Sants",
     duration: 1,
+    picture:
+      "https://www.publicdomainpictures.net/pictures/300000/velka/empty-white-room.jpg",
     category: "Care",
   },
   {
@@ -286,6 +290,8 @@ const initialServices = [
     giverUser: "6026b09ada76808f8e5fe556",
     location: "Montjuic",
     duration: 1,
+    picture:
+      "https://www.publicdomainpictures.net/pictures/300000/velka/empty-white-room.jpg",
     category: "Lessons",
   },
   {
@@ -295,6 +301,8 @@ const initialServices = [
     giverUser: "6026b09ada76808f8e5fe556",
     location: "Montjuic",
     duration: 1,
+    picture:
+      "https://www.publicdomainpictures.net/pictures/300000/velka/empty-white-room.jpg",
     category: "Lessons",
   },
   {
@@ -303,6 +311,8 @@ const initialServices = [
     giverUser: "6026b09ada76808f8e5fe556",
     location: "Hospitalet",
     duration: 1,
+    picture:
+      "https://www.publicdomainpictures.net/pictures/300000/velka/empty-white-room.jpg",
     category: "Lessons",
   },
   {
@@ -311,6 +321,8 @@ const initialServices = [
     giverUser: "6026b09ada76808f8e5fe556",
     location: "Hospitalet",
     duration: 1,
+    picture:
+      "https://www.publicdomainpictures.net/pictures/300000/velka/empty-white-room.jpg",
     category: "Care",
   },
   {
@@ -319,6 +331,8 @@ const initialServices = [
     giverUser: "6026b09ada76808f8e5fe556",
     location: "Sagrada Familia",
     duration: 1,
+    picture:
+      "https://www.publicdomainpictures.net/pictures/300000/velka/empty-white-room.jpg",
     category: "Digital services",
   },
   {
@@ -327,6 +341,8 @@ const initialServices = [
     giverUser: "6026b09ada76808f8e5fe556",
     location: "Sagrada Familia",
     duration: 1,
+    picture:
+      "https://www.publicdomainpictures.net/pictures/300000/velka/empty-white-room.jpg",
     category: "Construction & repair",
   },
   {
@@ -335,6 +351,8 @@ const initialServices = [
     giverUser: "6026b09ada76808f8e5fe556",
     location: "El Born",
     duration: 1,
+    picture:
+      "https://www.publicdomainpictures.net/pictures/300000/velka/empty-white-room.jpg",
     category: "Lessons",
   },
   {
@@ -344,6 +362,8 @@ const initialServices = [
     giverUser: "6026b09ada76808f8e5fe556",
     location: "El Born",
     duration: 1,
+    picture:
+      "https://www.publicdomainpictures.net/pictures/300000/velka/empty-white-room.jpg",
     category: "Lessons",
   },
   {
@@ -353,6 +373,8 @@ const initialServices = [
     giverUser: "6026b09ada76808f8e5fe556",
     location: "Arc de Triomf",
     duration: 1,
+    picture:
+      "https://www.publicdomainpictures.net/pictures/300000/velka/empty-white-room.jpg",
     category: "Lessons",
   },
   {
@@ -362,6 +384,8 @@ const initialServices = [
     giverUser: "6026b09ada76808f8e5fe556",
     location: "Gràcia",
     duration: 1,
+    picture:
+      "https://www.publicdomainpictures.net/pictures/300000/velka/empty-white-room.jpg",
     category: "Lessons",
   },
   {
@@ -370,6 +394,8 @@ const initialServices = [
     giverUser: "6026b09ada76808f8e5fe556",
     location: "Gràcia",
     duration: 1,
+    picture:
+      "https://www.publicdomainpictures.net/pictures/300000/velka/empty-white-room.jpg",
     category: "Lessons",
   },
   {
@@ -379,6 +405,8 @@ const initialServices = [
     giverUser: "6026b09ada76808f8e5fe556",
     location: "El Gòtic",
     duration: 1,
+    picture:
+      "https://www.publicdomainpictures.net/pictures/300000/velka/empty-white-room.jpg",
     category: "Lessons",
   },
   {
@@ -387,6 +415,8 @@ const initialServices = [
     giverUser: "6026b09ada76808f8e5fe556",
     location: "Marina",
     duration: 1,
+    picture:
+      "https://www.publicdomainpictures.net/pictures/300000/velka/empty-white-room.jpg",
     category: "Lessons",
   },
   {
@@ -395,6 +425,8 @@ const initialServices = [
     giverUser: "6026b09ada76808f8e5fe556",
     location: "Marina",
     duration: 1,
+    picture:
+      "https://www.publicdomainpictures.net/pictures/300000/velka/empty-white-room.jpg",
     category: "Food",
   },
 
@@ -404,6 +436,8 @@ const initialServices = [
     giverUser: "6026b09ada76808f8e5fe556",
     location: "Arc de Triomf",
     duration: 1,
+    picture:
+      "https://www.publicdomainpictures.net/pictures/300000/velka/empty-white-room.jpg",
     category: "Construction & repair",
   },
   {
@@ -412,6 +446,8 @@ const initialServices = [
     giverUser: "6026b09ada76808f8e5fe556",
     location: "Terrassa",
     duration: 1,
+    picture:
+      "https://www.publicdomainpictures.net/pictures/300000/velka/empty-white-room.jpg",
     category: "Care",
   },
   {
@@ -420,6 +456,8 @@ const initialServices = [
     giverUser: "6026b09ada76808f8e5fe556",
     location: "Arc de Triomf",
     duration: 1,
+    picture:
+      "https://www.publicdomainpictures.net/pictures/300000/velka/empty-white-room.jpg",
     category: "Digital services",
   },
   {
@@ -428,6 +466,8 @@ const initialServices = [
     giverUser: "6026b09ada76808f8e5fe556",
     location: "Arc de Triomf",
     duration: 1,
+    picture:
+      "https://www.publicdomainpictures.net/pictures/300000/velka/empty-white-room.jpg",
     category: "Construction & repair",
   },
   {
@@ -436,6 +476,8 @@ const initialServices = [
     giverUser: "6026b09ada76808f8e5fe556",
     location: "Arc de Triomf",
     duration: 1,
+    picture:
+      "https://www.publicdomainpictures.net/pictures/300000/velka/empty-white-room.jpg",
     category: "Construction & repair",
   },
 ];
@@ -463,17 +505,32 @@ mongoose
     return pr;
   })
   .then((users) => {
-    console.log(`${initialUsers.length} users introduced in the DB.`);
+    console.log(`${users.length} users introduced in the DB.`);
 
     initialServices.forEach((service) => {
-      service.giverUser = users[Math.floor(Math.random() * users.length)]._id;
+      let randomNum = Math.floor(Math.random() * users.length);
+      service.giverUser = users[randomNum]._id;
     });
 
     const pr = Service.create(initialServices);
     return pr;
   })
   .then((createdServices) => {
-    console.log(`${initialServices.length} services introduced in the DB.`);
+    console.log(`${createdServices.length} services introduced in the DB.`);
+
+    const updatePrs = createdServices.map((serv) => {
+      return User.findByIdAndUpdate(serv.giverUser, {
+        $push: { services: serv._id },
+      })
+        .then(() => {})
+        .catch((err) => console.log(err));
+    });
+
+    const bigPr = Promise.all(updatePrs);
+
+    return bigPr;
+  })
+  .then((updatedUsers) => {
     mongoose.connection.close();
   })
   .catch((err) => console.error("Error connecting to mongo", err));
