@@ -21,12 +21,13 @@ function isLogNavFn(req) {
 // already in /services/
 
 servicesRouter.get("/", (req, res, next) => {
-  const serviceSearch = req.query.search;
+  const serviceSearch = req.query.search.split(" ");
+  const regexStr = serviceSearch.join("|");
 
-  Service.find({ name: serviceSearch })
+  Service.find({ name: { $regex: regexStr, $options: "i" } })
     .then((servicesArr) => {
       const data = {
-        isLogNav: isLogNavFn,
+        isLogNav: isLogNavFn(req),
         servicesArr: servicesArr,
       };
       res.render("services-results", data);
