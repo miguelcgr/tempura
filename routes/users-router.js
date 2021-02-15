@@ -2,31 +2,61 @@ var express = require("express");
 var usersRouter = express.Router();
 
 const User = require("./../models/user.model");
-const Service = require("./../models/service.model");
+//const Service = require("./../models/service.model");
+
+const { isLoggedIn } = require("../util/middleware");
+
+function isLogNavFn(req) {
+  let data;
+  if (req.session.currentUser) {
+    data = {
+      isLogNav: true,
+    };
+  } else {
+    data = {
+      isLogNav: false,
+    };
+  }
+  return data;
+}
 
 // already in /users/
 
-usersRouter.get("/user-profile/:id", (req, res, next) => {
+usersRouter.get("/:id", (req, res, next) => {
   const userId = req.params.id;
 
-  User.findOne({ ObjectId: userId })
+  User.findById(userId)
+  .populate('services')
     .then((user) => {
       const data = {
-        username: user.username,
-        fname: user.fname,
-        lname: user.lname,
-        email: user.email,
-        phone: user.phone,
-        balance: user.balance,
-        location: user.location,
-        services: user.services,
-        swaps: user.swaps,
-        profilePic: user.profilePic,
-        joinDate: user.joinDate,
+      user:user, 
+      isLogNav: isLogNavFn(req)
       };
       res.render("user-profile-public", data);
     })
     .catch((err) => console.log("User not found"));
 });
+
+
+usersRouter.get("/my-profile", (req, res, next) => {
+ 
+
+      const data = {
+        isLogNav: isLogNavFn(req),
+        user: req.session,
+      };
+      res.render("user-profile-private", data);
+    })
+
+
+
+usersRouter.get("/edit-profile", isLoggedIn, (req, res, next) => {
+  res.render("edit-profile");
+});
+
+usersRouter.post("/edit-profile", isLoggedIn, (req, res, next) => {
+  res.render("edit-profile");
+});
+
 
 module.exports = usersRouter;

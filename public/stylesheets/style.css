@@ -108,3 +108,22 @@ footer {
   display: inline-block;
   transform: rotate(180deg);
 }
+
+#user-profile{
+ 
+  display: flex;
+  flex-direction: column;
+}
+.wrap{
+margin: 5%;
+}
+.upper{
+   display: flex;
+   flex-direction: row;
+   justify-content: space-between;
+    margin-right: 20%;
+}
+
+img{
+  width: 100px;
+}

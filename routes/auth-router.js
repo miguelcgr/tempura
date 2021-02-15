@@ -96,22 +96,13 @@ router.get("/logout", (req, res, next) => {
   });
 });
 
-// router.get("/user-profile-private", isLoggedIn, (req, res, next) => {
-//   res.render("user-profile-private");
-// });
+
 
 // //renders public service page (ficha)
 // router.get("/services/details/:id", (req, res, next) => {
 //   res.render("service-profile");
 // });
 
-// router.get("/edit-profile", isLoggedIn, (req, res, next) => {
-//   res.render("edit-profile");
-// });
-
-// router.post("/edit-profile", isLoggedIn, (req, res, next) => {
-//   res.render("edit-profile");
-// });
 
 // router.get("/create-service", isLoggedIn, (req, res, next) => {
 //   res.render("create-service");

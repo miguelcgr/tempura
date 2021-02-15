@@ -1,1 +1,37 @@
-<h1>public user profile</h1>
+
+{{> navbar isLogNav}}
+
+
+{{main id = "user-profile"}}
+<div class="wrap">
+<h1>{{user.fname}} {{user.lname}}</h1>
+<div class="upper">
+    <div>   
+      <p>phone: {{user.phone}}</p>
+      <p>location: {{user.location}}</p>
+      <p>balance: {{user.balance}}</p>
+
+      <p>Stats: {{user.swaps.length}}</p>
+
+      <p>User since: {{user.joinDate}} </p>
+    </div>
+    <img src= {{user.profilePic}} alt="User profile pic">
+</div>
+<div>
+<p>Offered services: </p>
+<ul>
+{{#each user.services}}
+<li>
+ <a href="/services/{{this._id}}">{{this.name}}</a>
+</li>
+{{/each}}
+</ul>
+
+</div>
+</div>
+<!--  <p>{{user.services}}</p>  -->
+
+<!-- hours     my profile     notifications     logout ,funciona-->
+
+<!-- -->
+
