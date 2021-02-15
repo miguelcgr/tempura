@@ -49,4 +49,12 @@ servicesRouter.get("/:id", (req, res, next) => {
     .catch((err) => console.log(err));
 });
 
+// servicesRouter.get("/create", (req, res, next) => {
+//   res.render("service-create", isLogNavFn(req));
+// });
+
+// servicesRouter.post("/create2", (req, res, next) => {
+//   res.render("/users/my-profile");
+// });
+
 module.exports = servicesRouter;
