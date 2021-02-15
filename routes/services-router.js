@@ -38,6 +38,7 @@ servicesRouter.get("/", (req, res, next) => {
 servicesRouter.get("/:id", (req, res, next) => {
   const serviceId = req.params.id;
   Service.findById(serviceId)
+    .populate("giverUser")
     .then((foundService) => {
       const data = {
         isLogNav: isLogNavFn(req),
