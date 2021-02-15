@@ -8,11 +8,12 @@ const logger = require("morgan");
 const hbs = require("hbs");
 
 const mongoose = require("mongoose");
+
 const session = require("express-session");
 const MongoStore = require("connect-mongo")(session);
 
-const usersRouter = require("./routes/users-router");
 const authRouter = require("./routes/auth-router");
+const usersRouter = require("./routes/users-router");
 const servicesRouter = require("./routes/services-router");
 
 const app = express();
@@ -45,8 +46,8 @@ app.use(
 );
 
 app.use("/", authRouter);
-// app.use("/users", usersRouter);
-// app.use("/services", servicesRouter);
+app.use("/users", usersRouter);
+app.use("/services", servicesRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
