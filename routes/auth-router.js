@@ -12,7 +12,7 @@ const { isLoggedIn } = require("../util/middleware");
 const bcrypt = require("bcrypt");
 const saltRounds = 10;
 
-router.get("/", (req, res, next) => {
+function isLogNavFn(req) {
   let data;
   if (req.session.currentUser) {
     data = {
@@ -23,8 +23,10 @@ router.get("/", (req, res, next) => {
       isLogNav: false,
     };
   }
-  res.render("index", data);
-});
+  return data;
+}
+
+router.get("/", (req, res, next) => res.render("index", isLogNavFn(req)));
 
 router.get("/login", (req, res, next) => res.render("login"));
 
@@ -84,17 +86,41 @@ router.post("/signup", (req, res, next) => {
   });
 });
 
-router.get("/services/?search", (req, res, next) => {
-  // /// // // // //
+router.get("/services", (req, res, next) => {
   const serviceSearch = req.query.search;
-
-  Service.find({ name: serviceSearch });
-
-  res.render("search-results", data);
+  Service.find()
+    .then((servicesArr) => {
+      const data = {
+        isLogNav: isLogNavFn,
+        servicesArr: servicesArr,
+      };
+      console.log("servicesArr", servicesArr);
+      res.render("services-results", data);
+    })
+    .catch((err) => console.log(err));
 });
 
-router.get("/user-profile-public", (req, res, next) => {
-  res.render("user-profile-public");
+router.get("/user-profile/:id", (req, res, next) => {
+  const userId = req.params.id;
+
+  User.findOne({ ObjectId: userId })
+    .then((user) => {
+      const data = {
+        username: user.username,
+        fname: user.fname,
+        lname: user.lname,
+        email: user.email,
+        phone: user.phone,
+        balance: user.balance,
+        location: user.location,
+        services: user.services,
+        swaps: user.swaps,
+        profilePic: user.profilePic,
+        joinDate: user.joinDate,
+      };
+      res.render("user-profile-public", data);
+    })
+    .catch((err) => console.log("User not found"));
 });
 
 // router.get("/user-profile-private", isLoggedIn, (req, res, next) => {
