@@ -86,41 +86,14 @@ router.post("/signup", (req, res, next) => {
   });
 });
 
-router.get("/services", (req, res, next) => {
-  const serviceSearch = req.query.search;
-  Service.find()
-    .then((servicesArr) => {
-      const data = {
-        isLogNav: isLogNavFn,
-        servicesArr: servicesArr,
-      };
-      console.log("servicesArr", servicesArr);
-      res.render("services-results", data);
-    })
-    .catch((err) => console.log(err));
-});
-
-router.get("/user-profile/:id", (req, res, next) => {
-  const userId = req.params.id;
-
-  User.findOne({ ObjectId: userId })
-    .then((user) => {
-      const data = {
-        username: user.username,
-        fname: user.fname,
-        lname: user.lname,
-        email: user.email,
-        phone: user.phone,
-        balance: user.balance,
-        location: user.location,
-        services: user.services,
-        swaps: user.swaps,
-        profilePic: user.profilePic,
-        joinDate: user.joinDate,
-      };
-      res.render("user-profile-public", data);
-    })
-    .catch((err) => console.log("User not found"));
+router.get("/logout", (req, res, next) => {
+  req.session.destroy((err) => {
+    if (err) {
+      next(err);
+    } else {
+      res.redirect("/");
+    }
+  });
 });
 
 // router.get("/user-profile-private", isLoggedIn, (req, res, next) => {
@@ -162,14 +135,5 @@ router.get("/user-profile/:id", (req, res, next) => {
 
 // Destroys the existing session
 // GET     /auth/logout
-router.get("/logout", (req, res, next) => {
-  req.session.destroy((err) => {
-    if (err) {
-      next(err);
-    } else {
-      res.redirect("/");
-    }
-  });
-});
 
 module.exports = router;
