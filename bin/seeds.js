@@ -431,7 +431,7 @@ const initialServices = [
     giverUser: "6026b09ada76808f8e5fe556",
     location: "Arc de Triumf",
     duration: 1,
-    category: "Digital services
+    category: "Digital services"
     },
     {
     name: "Bicycle repair",
