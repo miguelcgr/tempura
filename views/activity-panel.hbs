@@ -1,1 +1,22 @@
+
+{{> navbar isLogNav}}
+
 <h1>activity panel</h1>
+
+{{main id = "user-profile"}}
+<div class="wrap">
+<h1>{{user.fname}} {{user.lname}}</h1>
+<div class="upper">
+    <div>   
+      <p>Requested swaps</p>  
+      <p>swaps: {{user.swaps}}</p>
+  
+    </div>
+   
+</div>
+<div>
+<p>Pending swaps: </p>
+
+<p>Past swaps</p>
+</div>
+</div>  

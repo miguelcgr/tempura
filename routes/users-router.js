@@ -23,7 +23,7 @@ function isLogNavFn(req) {
 // already in /users/
 
 //public profile
-usersRouter.get("/:id", (req, res, next) => {
+usersRouter.get("/profile/:id", (req, res, next) => {
   const userId = req.params.id;
   User.findById(userId)
   .populate('services')
@@ -38,11 +38,11 @@ usersRouter.get("/:id", (req, res, next) => {
 });
 
 //private profile
-usersRouter.get("/my-profile", (req, res, next) => {
-      console.log(req) 
+usersRouter.get("/my-profile", isLoggedIn, (req, res, next) => {
+
       const data = {
         isLogNav: isLogNavFn(req),
-        user: req.session,
+        user: req.session.currentUser,
       };
       res.render("user-profile-private", data);
     })
@@ -55,6 +55,15 @@ usersRouter.get("/edit-profile", isLoggedIn, (req, res, next) => {
 
 usersRouter.post("/edit-profile", isLoggedIn, (req, res, next) => {
   res.render("edit-profile");
+});
+
+
+usersRouter.get("/activity-panel", isLoggedIn, (req, res, next) => {
+  const data = {
+    isLogNav: isLogNavFn(req),
+    user: req.session,
+  };
+  res.render("activity-panel", data);
 });
 
 
