@@ -17,7 +17,11 @@
       <p>Stats: {{user.swaps}}</p>
       <p>User since: {{user.joinDate}} </p>
     </div>
-    <a href="/users/edit-profile">Edit profile</a>
+
+    <a href="/users/my-profile/edit"><button type='submit'>Edit profile</button></a>
+
+
+
     <img src= {{user.profilePic}} alt="User profile pic">
 </div>
 <div>
@@ -26,6 +30,9 @@
 {{#each user.services}}
 <li>
  <a href="/services/{{this._id}}">{{this.name}}</a>
+ <p>{{this.description}}</p>
+  <a href="/services/{{this._id}}"><img src= {{this.picture}} alt="service pic"></a>
+
 </li>
 {{/each}}
 </ul>
