@@ -1,10 +1,11 @@
-<h1>user profile private</h1>
+
 
 
 {{> navbar isLogNav}}
 
 
 {{main id = "user-profile"}}
+<h1>user profile private</h1>
 
 <h1>{{user.fname}} {{user.lname}}</h1>
 <div class="upper">
@@ -16,6 +17,7 @@
       <p>Stats: {{user.swaps}}</p>
       <p>User since: {{user.joinDate}} </p>
     </div>
+    <a href="/users/edit-profile">Edit profile</a>
     <img src= {{user.profilePic}} alt="User profile pic">
 </div>
 <div>
