@@ -1,20 +1,55 @@
 
 {{> navbar isLogNav}}
-
+<main id="activity-panel">
 <h1>Activity panel</h1>
 <h3>Your user: {{user.username}}</h3>
 
-<div class="wrap">
 <h4>Requested Swaps</h4>
+<div>
 {{#each user.swaps.asGiver}}
-<p>{{this.service.name}}</p>
-<p>{{this.takerUser.fname}} is asking for this service.</p>
-{{/each}}
+<article>
+  <img src="{{this.service.picture}}" alt="{{this.service.name}}">
+  <p><strong>{{this.service.name}}</strong></p>
+  <p>{{this.takerUser.fname}} {{this.takerUser.lname}} is asking for this service.</p>
+  <p><em>Petition date: {{this.creationDate}}</em></p>
 
+<script>
+
+</script>
+
+  {{#if this.giverAccept}}
+    <p><strong>Accepted!</strong></p>
+    <p>Call {{this.takerUser.fname}} at {{this.takerUser.phone}}!</p>
+  {{else}}
+    <a href="/swaps/{{this._id}}/accept">Accept</a>
+    <a href="/swaps/{{this._id}}/reject">Reject</a>
+  {{/if}}
+
+</article>
+{{/each}}
+</div>
 <h4>Pending Swaps</h4>
+<div>
 {{#each user.swaps.asTaker}}
-<p>{{this.service.name}}</p>
-<p>You asked {{this.giverUser.fname}} {{this.giverUser.lname}}</p>
+<article>
+  <img src="{{this.service.picture}}" alt="{{this.service.name}}">
+  <p><strong>{{this.service.name}}</strong></p>
+  <p>You asked {{this.giverUser.fname}} {{this.giverUser.lname}}</p>
+  <p><em>Petition date: {{this.creationDate}}</em></p>
+</article>
 {{/each}}
-
+</div>
 <h4>Past Swaps</h4>
+<div>
+{{#each user.swaps.pastSwaps}}
+<article>
+  <img src="{{this.service.picture}}" alt="{{this.service.name}}">
+  <p><strong>{{this.service.name}}</strong></p>
+  <p>Host: {{this.giverUser.fname}} {{this.giverUser.lname}}</p>
+  <p>Guest: {{this.takerUser.fname}} {{this.takerUser.lname}}</p>
+  <p><em>Finished on: {{this.takerConfirmationTime}}</em></p>
+</article>
+{{/each}}
+</div>
+
+</main>

@@ -37,6 +37,7 @@ swapsRouter.post("/create/:id", (req, res, next) => {
       const totalDuration = requestedSessions * serviceDuration;
 
       const newSwap = {
+        creationDate: new Date(),
         giverUser: giverUserId,
         takerUser: takerUserId,
         service: serviceId,
@@ -101,6 +102,30 @@ swapsRouter.get("/activity-panel", isLoggedIn, (req, res, next) => {
         user: myUser,
       };
       res.render("activity-panel", data);
+    })
+    .catch((err) => console.log(err));
+});
+
+swapsRouter.get("/:id/accept", (req, res, next) => {
+  const swapId = req.params.id;
+  Swap.findByIdAndUpdate(swapId, {
+    giverAccept: true,
+    giverAcceptTime: new Date(),
+  })
+    .then(() => {
+      res.redirect("/swaps/activity-panel");
+    })
+    .catch((err) => console.log(err));
+});
+
+swapsRouter.get("/:id/reject", (req, res, next) => {
+  const swapId = req.params.id;
+  Swap.findByIdAndUpdate(swapId, {
+    giverAccept: false,
+    giverAcceptTime: new Date(),
+  })
+    .then(() => {
+      res.redirect("/swaps/activity-panel");
     })
     .catch((err) => console.log(err));
 });

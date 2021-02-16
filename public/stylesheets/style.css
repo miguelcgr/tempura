@@ -125,21 +125,36 @@ footer {
   transform: rotate(180deg);
 }
 
-#user-profile{
- 
+#user-profile {
   display: flex;
   flex-direction: column;
 }
-.wrap{
-margin: 5%;
+.wrap {
+  margin: 5%;
 }
-.upper{
-   display: flex;
-   flex-direction: row;
-   justify-content: space-between;
-    margin-right: 20%;
+.upper {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-right: 20%;
 }
 
-img{
+img {
   width: 100px;
+}
+
+#activity-panel div {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+#activity-panel img {
+  width: 300px;
+  height: auto;
+}
+
+#activity-panel article {
+  width: 20vw;
+  padding: 15px;
+  margin: 10px;
 }
