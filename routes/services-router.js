@@ -4,6 +4,8 @@ var servicesRouter = express.Router();
 const User = require("./../models/user.model");
 const Service = require("./../models/service.model");
 
+const { isLoggedIn } = require("../util/middleware");
+
 function isLogNavFn(req) {
   let data;
   if (req.session.currentUser) {
@@ -35,7 +37,7 @@ servicesRouter.get("/", (req, res, next) => {
     .catch((err) => console.log(err));
 });
 
-servicesRouter.get("/:id", (req, res, next) => {
+servicesRouter.get("/profile/:id", isLoggedIn, (req, res, next) => {
   const serviceId = req.params.id;
   Service.findById(serviceId)
     .populate("giverUser")
@@ -49,12 +51,28 @@ servicesRouter.get("/:id", (req, res, next) => {
     .catch((err) => console.log(err));
 });
 
-// servicesRouter.get("/create", (req, res, next) => {
-//   res.render("service-create", isLogNavFn(req));
-// });
+servicesRouter.get("/create", isLoggedIn, (req, res, next) => {
+  res.render("service-create", { isLogNav: isLogNavFn(req) });
+});
 
-// servicesRouter.post("/create2", (req, res, next) => {
-//   res.render("/users/my-profile");
-// });
+servicesRouter.post("/create", (req, res, next) => {
+  const { name, description, location, duration, category } = req.body;
+  const newService = {
+    name,
+    description,
+    giverUser: req.session.currentUser._id,
+    location,
+    duration,
+    category,
+    picture: [],
+    dateAdded: new Date(),
+  };
+  Service.create(newService)
+    .then((data) => {
+      console.log(data);
+      res.render("/users/my-profile");
+    })
+    .catch((err) => console.log(err));
+});
 
 module.exports = servicesRouter;
