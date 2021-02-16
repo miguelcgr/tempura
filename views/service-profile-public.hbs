@@ -13,17 +13,4 @@
 <p>Date added: {{service.dateAddeed}}</p>
 <p>{{service.description}}</p>
 
-<br>
-<br>
-
-<strong>Ask {{service.giverUser.fname}} to provide {{service.name}}!</strong>
-
-<form action='/swaps/create' method='POST'>
-
-  <label for=''>Duration</label>
-  <input type='number' name='duration' value="{{service.duration}}" required>
-
-  <button type='submit'>Request this!</button>
-</form>
-
 </main>
