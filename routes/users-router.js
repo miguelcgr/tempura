@@ -79,13 +79,4 @@ usersRouter.post("/edit-profile", isLoggedIn, (req, res, next) => {
 });
 
 
-usersRouter.get("/activity-panel", isLoggedIn, (req, res, next) => {
-  const data = {
-    isLogNav: isLogNavFn(req),
-    user: req.session,
-  };
-  res.render("activity-panel", data);
-});
-
-
 module.exports = usersRouter;

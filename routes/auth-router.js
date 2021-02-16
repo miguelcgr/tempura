@@ -119,32 +119,4 @@ router.get("/logout", (req, res, next) => {
   });
 });
 
-// //renders public service page (ficha)
-// router.get("/services/details/:id", (req, res, next) => {
-//   res.render("service-profile");
-// });
-
-// router.get("/create-service", isLoggedIn, (req, res, next) => {
-//   res.render("create-service");
-// });
-
-// router.post("/create-service", isLoggedIn, (req, res, next) => {
-//   res.render("create-service");
-// });
-
-// router.post("/delete-service", isLoggedIn, (req, res, next) => {
-//   res.render("delete-service");
-// });
-
-// router.get("/activity-panel", isLoggedIn, (req, res, next) => {
-//   res.render("activity-panel");
-// });
-
-// router.post("/activity-panel", isLoggedIn, (req, res, next) => {
-//   res.render("activity-panel");
-// });
-
-// Destroys the existing session
-// GET     /auth/logout
-
 module.exports = router;

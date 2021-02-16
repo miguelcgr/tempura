@@ -5,6 +5,8 @@ const User = require("../models/user.model");
 const Service = require("../models/service.model");
 const Swap = require("../models/swap.model");
 
+const { isLoggedIn } = require("../util/middleware");
+
 function isLogNavFn(req) {
   let data;
   if (req.session.currentUser) {
@@ -19,7 +21,7 @@ function isLogNavFn(req) {
   return data;
 }
 
-// already in /swaps/
+// already in /swaps
 
 swapsRouter.post("/create/:id", (req, res, next) => {
   const serviceId = req.params.id;
@@ -46,12 +48,18 @@ swapsRouter.post("/create/:id", (req, res, next) => {
     })
     .then((createdSwap) => {
       newSwapId = createdSwap._id;
-      const pr = User.findByIdAndUpdate(takerUserId, {
-        $push: { "swaps.asTaker": newSwapId },
-      });
+      const pr = User.findByIdAndUpdate(
+        takerUserId,
+        {
+          $push: { "swaps.asTaker": newSwapId },
+        },
+        { new: true }
+      );
       return pr;
     })
-    .then(() => {
+    .then((updatedTakerUser) => {
+      req.session.currentUser = updatedTakerUser;
+
       const pr = User.findByIdAndUpdate(giverUserId, {
         $push: { "swaps.asGiver": newSwapId },
       });
@@ -59,6 +67,40 @@ swapsRouter.post("/create/:id", (req, res, next) => {
     })
     .then(() => {
       res.render("swap-requested");
+    })
+    .catch((err) => console.log(err));
+});
+
+swapsRouter.get("/activity-panel", isLoggedIn, (req, res, next) => {
+  User.findById(req.session.currentUser._id)
+    //.populate("swaps.asTaker swaps.asGiver swaps.pastSwaps")
+    .populate({
+      path: "swaps",
+      populate: [
+        {
+          path: "asTaker",
+          model: "Swap",
+          populate: "giverUser takerUser service",
+        },
+        {
+          path: "asGiver",
+          model: "Swap",
+          populate: "giverUser takerUser service",
+        },
+        {
+          path: "pastSwaps",
+          model: "Swap",
+          populate: "giverUser takerUser service",
+        },
+      ],
+    })
+    .then((myUser) => {
+      console.log(myUser.swaps);
+      const data = {
+        isLogNav: isLogNavFn(req),
+        user: myUser,
+      };
+      res.render("activity-panel", data);
     })
     .catch((err) => console.log(err));
 });

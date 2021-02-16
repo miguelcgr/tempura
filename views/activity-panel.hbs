@@ -1,22 +1,20 @@
 
 {{> navbar isLogNav}}
 
-<h1>activity panel</h1>
+<h1>Activity panel</h1>
+<h3>Your user: {{user.username}}</h3>
 
-{{main id = "user-profile"}}
 <div class="wrap">
-<h1>{{user.fname}} {{user.lname}}</h1>
-<div class="upper">
-    <div>   
-      <p>Requested swaps</p>  
-      <p>swaps: {{user.swaps}}</p>
-  
-    </div>
-   
-</div>
-<div>
-<p>Pending swaps: </p>
+<h4>Requested Swaps</h4>
+{{#each user.swaps.asGiver}}
+<p>{{this.service.name}}</p>
+<p>{{this.takerUser.fname}} is asking for this service.</p>
+{{/each}}
 
-<p>Past swaps</p>
-</div>
-</div>  
+<h4>Pending Swaps</h4>
+{{#each user.swaps.asTaker}}
+<p>{{this.service.name}}</p>
+<p>You asked {{this.giverUser.fname}} {{this.giverUser.lname}}</p>
+{{/each}}
+
+<h4>Past Swaps</h4>
