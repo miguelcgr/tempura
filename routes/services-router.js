@@ -40,27 +40,29 @@ servicesRouter.get("/", (req, res, next) => {
 servicesRouter.get("/profile/:id", (req, res, next) => {
   const serviceId = req.params.id;
 
-  if (req.session.currentUser.services.includes(serviceId)) {
-    Service.findById(serviceId)
-      .then((foundService) => {
-        const data = {
-          isLogNav: isLogNavFn(req),
-          service: foundService,
-        };
-        res.render("service-profile-own", data);
-      })
-      .catch((err) => console.log(err));
-  } else if (req.session.currentUser) {
-    Service.findById(serviceId)
-      .populate("giverUser")
-      .then((foundService) => {
-        const data = {
-          isLogNav: isLogNavFn(req),
-          service: foundService,
-        };
-        res.render("service-profile-private", data);
-      })
-      .catch((err) => console.log(err));
+  if (req.session.currentUser) {
+    if (req.session.currentUser.services.includes(serviceId)) {
+      Service.findById(serviceId)
+        .then((foundService) => {
+          const data = {
+            isLogNav: isLogNavFn(req),
+            service: foundService,
+          };
+          res.render("service-profile-own", data);
+        })
+        .catch((err) => console.log(err));
+    } else {
+      Service.findById(serviceId)
+        .populate("giverUser")
+        .then((foundService) => {
+          const data = {
+            isLogNav: isLogNavFn(req),
+            service: foundService,
+          };
+          res.render("service-profile-private", data);
+        })
+        .catch((err) => console.log(err));
+    }
   } else {
     Service.findById(serviceId)
       .populate("giverUser")
