@@ -39,7 +39,8 @@ usersRouter.get("/:id", (req, res, next) => {
 
 //private profile
 usersRouter.get("/my-profile", (req, res, next) => {
-       const data = {
+      console.log(req) 
+      const data = {
         isLogNav: isLogNavFn(req),
         user: req.session,
       };
