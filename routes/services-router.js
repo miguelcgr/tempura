@@ -59,7 +59,7 @@ servicesRouter.get("/profile/:id", (req, res, next) => {
             isLogNav: isLogNavFn(req),
             service: foundService,
           };
-          res.render("service-profile-private", data);
+          res.render("service-profile-logged-in", data);
         })
         .catch((err) => console.log(err));
     }

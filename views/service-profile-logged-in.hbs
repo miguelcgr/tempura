@@ -17,12 +17,13 @@
 <br>
 <br>
 
-<strong>Ask {{service.giverUser.fname}} to provide {{service.name}}!</strong>
+<strong>I want ... </strong>
 
-<form action='/swaps/create' method='POST'>
+<form action='/swaps/create/{{service._id}}' method='POST'>
 
-  <label for=''>Duration</label>
-  <input type='number' name='duration' value="{{service.duration}}" required>
+  <input type='number' name='duration' value="1" required>
+  <p>sessions of <strong>{{service.duration}} hour/s</strong> of <strong>{{service.name}}</strong>, offered by <strong>{{service.giverUser.fname}} {{service.giverUser.lname}}</strong>.</p>
+  
 
   <button type='submit'>Request this!</button>
 </form>
