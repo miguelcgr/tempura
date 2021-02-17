@@ -4,6 +4,8 @@ var servicesRouter = express.Router();
 const User = require("./../models/user.model");
 const Service = require("./../models/service.model");
 
+const { isLoggedIn } = require("../util/middleware");
+
 function isLogNavFn(req) {
   let data;
   if (req.session.currentUser) {
@@ -35,26 +37,104 @@ servicesRouter.get("/", (req, res, next) => {
     .catch((err) => console.log(err));
 });
 
-servicesRouter.get("/:id", (req, res, next) => {
+servicesRouter.get("/profile/:id", (req, res, next) => {
+  const serviceId = req.params.id;
+  const { currentUser } = req.session;
+  const asTakerServices = currentUser.swaps.asTaker.map((swap) => swap.service);
+
+  if (req.session.currentUser) {
+    if (req.session.currentUser.services.includes(serviceId)) {
+      Service.findById(serviceId)
+        .then((foundService) => {
+          const data = {
+            isLogNav: isLogNavFn(req),
+            service: foundService,
+          };
+          res.render("service-profile-own", data);
+        })
+        .catch((err) => console.log(err));
+    } else if (asTakerServices.includes(serviceId)) {
+      Service.findById(serviceId)
+        .populate("giverUser")
+        .then((foundService) => {
+          const data = {
+            isLogNav: isLogNavFn(req),
+            service: foundService,
+          };
+          res.render("service-profile-logged-in-requested", data);
+        })
+        .catch((err) => console.log(err));
+    } else {
+      Service.findById(serviceId)
+        .populate("giverUser")
+        .then((foundService) => {
+          const data = {
+            isLogNav: isLogNavFn(req),
+            service: foundService,
+          };
+          res.render("service-profile-logged-in", data);
+        })
+        .catch((err) => console.log(err));
+    }
+  } else {
+    Service.findById(serviceId)
+      .populate("giverUser")
+      .then((foundService) => {
+        const data = {
+          isLogNav: isLogNavFn(req),
+          service: foundService,
+        };
+        res.render("service-profile-public", data);
+      })
+      .catch((err) => console.log(err));
+  }
+});
+
+servicesRouter.get("/create", isLoggedIn, (req, res, next) => {
+  res.render("service-create", { isLogNav: isLogNavFn(req) });
+});
+
+servicesRouter.post("/create", (req, res, next) => {
+  const { name, description, location, duration, category } = req.body;
+  const newService = {
+    name,
+    description,
+    giverUser: req.session.currentUser._id,
+    location,
+    duration,
+    category,
+    picture: [],
+    dateAdded: new Date(),
+  };
+  Service.create(newService)
+    .then((data) => {
+      res.render("/users/my-profile");
+    })
+    .catch((err) => console.log(err));
+});
+
+servicesRouter.get("/profile/:id/edit", isLoggedIn, (req, res, next) => {
   const serviceId = req.params.id;
   Service.findById(serviceId)
-    .populate("giverUser")
     .then((foundService) => {
       const data = {
         isLogNav: isLogNavFn(req),
         service: foundService,
       };
-      res.render("service-profile", data);
+      res.render("service-profile-edit", data);
     })
     .catch((err) => console.log(err));
 });
 
-// servicesRouter.get("/create", (req, res, next) => {
-//   res.render("service-create", isLogNavFn(req));
-// });
-
-// servicesRouter.post("/create2", (req, res, next) => {
-//   res.render("/users/my-profile");
-// });
+servicesRouter.post("/edit/:id", isLoggedIn, (req, res, next) => {
+  const serviceId = req.params.id;
+  const { name, description, location, duration, category } = req.body;
+  const incomingData = { name, description, location, duration, category };
+  Service.findByIdAndUpdate(serviceId, incomingData, { new: true })
+    .then(() => {
+      res.redirect(`/services/profile/${serviceId}`);
+    })
+    .catch((err) => console.log(err));
+});
 
 module.exports = servicesRouter;

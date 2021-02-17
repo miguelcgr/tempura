@@ -5,19 +5,30 @@
   <form action='/services/create' method='POST'>
 
   <label for=''>Service name</label>
-  <input type='text' name='service-name' minlength="3" placeholder="English lessons">
-
+  <input type='text' name='name' minlength="3" placeholder="English lessons">
+<br>
   <label for=''>Service description</label>
-  <input type='text' name='service-description' minlength="3" placeholder="Give a brief explanation of the service">
-
+  <input type='text' name='description' minlength="3" placeholder="Give a brief explanation of the service">
+<br>
   <label for=''>Adds service pictures</label>
   <!-- <input type='file' name='service-pictures' > -->
-
+<br>
   <label for=''>Service location</label>
-  <input type='text' name='service-location' minlength="3" placeholder="Poblenou">
-
+  <input type='text' name='location' minlength="3" placeholder="Poblenou">
+<br>
   <label for=''>Service duration in hours</label>
-  <input type='number' name='service-duration' value="1" placeholder="1">
+  <input type='number' name='duration' value="1" placeholder="1">
+<br>
+  <label for=''>Selectt the service category:</label>
+<select name="category" value="Care">
+    <option value="Care">Care</option>
+    <option value="Construction & repair">Construction & repair</option>
+    <option value="Digital services">Digital services</option>
+    <option value="Food">Food</option>
+    <option value="Sports & Health">Sports & Health</option>
+    <option value="Other">Other</option>
+</select>
+<br>
 
   <button type='submit'>Create service</button>
 

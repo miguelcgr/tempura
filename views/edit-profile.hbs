@@ -1,1 +1,36 @@
-<h1>HomePage</h1>
+
+{{> navbar this}}
+
+<h1>edit profile</h1>
+
+<form action='/users/edit-profile' method='POST'>
+
+
+
+  <label for=''>Username</label>
+  <input type='text' name='username' minlength="5" value="{{user.username}}" required>
+
+  <label for=''>First Name</label>
+  <input type='text' name='fname' minlength="2" placeholder="Miguel" value="{{user.fname}}" required>
+
+  <label for=''>Last name</label>
+  <input type='text' name='lname' minlength="2" placeholder="López" value="{{user.lname}}" required>
+
+  <label for=''>email</label>
+  <input type='email' name='email' minlength="5" placeholder="miguel@tempura.org" value="{{user.email}}" required>
+
+
+  <label for=''>Phone</label>
+  <input type='text' name='phone' minlength="9" placeholder="+34612345678" value="{{user.phone}}" required>
+
+  <label for=''>Location</label>
+  <input type='text' name='location' minlength="4" placeholder="Poblenou" value="{{user.location}}" required>
+
+  <label for=''>Add profile picture</label>
+  <!-- <input type='file' name='profile-picture' > -->
+
+ 
+
+  <button type='submit'>Edit Profile</button>
+</form>
+

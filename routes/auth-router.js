@@ -37,6 +37,7 @@ router.post("/login", (req, res, next) => {
     return;
   }
   User.findOne({ username })
+    .populate("swaps.asTaker")
     .then((user) => {
       if (!user) {
         res.render("login", errorMessage);
@@ -58,7 +59,16 @@ router.post("/login", (req, res, next) => {
 router.get("/signup", (req, res, next) => res.render("signup"));
 
 router.post("/signup", (req, res, next) => {
-  const { username, password } = req.body;
+  const {
+    username,
+    password,
+    fname,
+    lname,
+    email,
+    phone,
+    location,
+    profilePic,
+  } = req.body;
   if (username === "" || password === "") {
     res.render("signup", errorMessage);
     return;
@@ -71,14 +81,31 @@ router.post("/signup", (req, res, next) => {
       });
       return;
     }
+
     const salt = bcrypt.genSaltSync(saltRounds);
     const hiddenPassword = bcrypt.hashSync(password, salt);
 
-    User.create({ username: username, password: hiddenPassword })
+    const newUser = {
+      username,
+      fname,
+      lname,
+      email,
+      password: hiddenPassword,
+      phone,
+      location,
+      profilePic,
+      joinDate: new Date(),
+    };
+
+    User.create(newUser)
       .then((user) => {
-        req.session.currentUser = user;
-        //        res.render("index", { isLogNav: true });
-        res.redirect("/");
+        User.findById(user._id)
+          .populate("swaps.asTaker")
+          .then((populatedUser) => {
+            req.session.currentUser = populatedUser;
+
+            res.redirect("/");
+          });
       })
       .catch((err) => {
         res.render("signup", errorMessage);
@@ -95,36 +122,5 @@ router.get("/logout", (req, res, next) => {
     }
   });
 });
-
-
-
-// //renders public service page (ficha)
-// router.get("/services/details/:id", (req, res, next) => {
-//   res.render("service-profile");
-// });
-
-
-// router.get("/create-service", isLoggedIn, (req, res, next) => {
-//   res.render("create-service");
-// });
-
-// router.post("/create-service", isLoggedIn, (req, res, next) => {
-//   res.render("create-service");
-// });
-
-// router.post("/delete-service", isLoggedIn, (req, res, next) => {
-//   res.render("delete-service");
-// });
-
-// router.get("/activity-panel", isLoggedIn, (req, res, next) => {
-//   res.render("activity-panel");
-// });
-
-// router.post("/activity-panel", isLoggedIn, (req, res, next) => {
-//   res.render("activity-panel");
-// });
-
-// Destroys the existing session
-// GET     /auth/logout
 
 module.exports = router;

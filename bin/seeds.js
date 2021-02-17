@@ -22,7 +22,7 @@ const initialUsers = [
       asGiver: [],
       pastSwaps: [],
     },
-    notifications: [],
+    notifications: 0,
     joinDate: new Date(2018, 11, 24),
   },
   {
@@ -40,7 +40,7 @@ const initialUsers = [
       asGiver: [],
       pastSwaps: [],
     },
-    notifications: [],
+    notifications: 0,
     joinDate: new Date(2018, 11, 22),
   },
   {
@@ -58,7 +58,7 @@ const initialUsers = [
       asGiver: [],
       pastSwaps: [],
     },
-    notifications: [],
+    notifications: 0,
     joinDate: new Date(2018, 11, 22),
   },
   {
@@ -76,7 +76,7 @@ const initialUsers = [
       asGiver: [],
       pastSwaps: [],
     },
-    notifications: [],
+    notifications: 0,
     joinDate: new Date(2018, 11, 22),
   },
   {
@@ -94,7 +94,7 @@ const initialUsers = [
       asGiver: [],
       pastSwaps: [],
     },
-    notifications: [],
+    notifications: 0,
     joinDate: new Date(2018, 11, 22),
   },
   {
@@ -112,7 +112,7 @@ const initialUsers = [
       asGiver: [],
       pastSwaps: [],
     },
-    notifications: [],
+    notifications: 0,
     joinDate: new Date(2018, 11, 22),
   },
   {
@@ -130,7 +130,7 @@ const initialUsers = [
       asGiver: [],
       pastSwaps: [],
     },
-    notifications: [],
+    notifications: 0,
     joinDate: new Date(2018, 11, 22),
   },
   {
@@ -148,7 +148,7 @@ const initialUsers = [
       asGiver: [],
       pastSwaps: [],
     },
-    notifications: [],
+    notifications: 0,
     joinDate: new Date(2018, 11, 22),
   },
   {
@@ -166,7 +166,7 @@ const initialUsers = [
       asGiver: [],
       pastSwaps: [],
     },
-    notifications: [],
+    notifications: 0,
     joinDate: new Date(2018, 11, 22),
   },
   {
@@ -184,7 +184,7 @@ const initialUsers = [
       asGiver: [],
       pastSwaps: [],
     },
-    notifications: [],
+    notifications: 0,
     joinDate: new Date(2018, 11, 22),
   },
   {
@@ -202,7 +202,7 @@ const initialUsers = [
       asGiver: [],
       pastSwaps: [],
     },
-    notifications: [],
+    notifications: 0,
     joinDate: new Date(2018, 11, 22),
   },
 
@@ -221,7 +221,7 @@ const initialUsers = [
       asGiver: [],
       pastSwaps: [],
     },
-    notifications: [],
+    notifications: 0,
     joinDate: new Date(2018, 11, 22),
   },
   {
@@ -239,7 +239,7 @@ const initialUsers = [
       asGiver: [],
       pastSwaps: [],
     },
-    notifications: [],
+    notifications: 0,
     joinDate: new Date(2018, 11, 22),
   },
   {
@@ -257,7 +257,7 @@ const initialUsers = [
       asGiver: [],
       pastSwaps: [],
     },
-    notifications: [],
+    notifications: 0,
     joinDate: new Date(2018, 11, 22),
   },
 ];
