@@ -37,6 +37,9 @@ swapsRouter.post("/create/:id", (req, res, next) => {
       const totalDuration = requestedSessions * serviceDuration;
 
       const newSwap = {
+        status1: true,
+        status2: false,
+        status3: false,
         creationDate: new Date(),
         giverUser: giverUserId,
         takerUser: takerUserId,
@@ -55,19 +58,33 @@ swapsRouter.post("/create/:id", (req, res, next) => {
           $push: { "swaps.asTaker": newSwapId },
         },
         { new: true }
-      );
+      ).populate("swaps.asTaker");
       return pr;
     })
     .then((updatedTakerUser) => {
       req.session.currentUser = updatedTakerUser;
 
+      const pr = User.findByIdAndUpdate(
+        giverUserId,
+        {
+          $push: { "swaps.asGiver": newSwapId },
+        },
+        { new: true }
+      );
+      return pr;
+    })
+    .then((updatedGiver) => {
+      const newNotification = updatedGiver.notifications + 1;
       const pr = User.findByIdAndUpdate(giverUserId, {
-        $push: { "swaps.asGiver": newSwapId },
+        notifications: newNotification,
       });
       return pr;
     })
     .then(() => {
-      res.render("swap-requested");
+      const data = {
+        request: "You requested this service!",
+      };
+      res.redirect(`/services/profile/${serviceId}`);
     })
     .catch((err) => console.log(err));
 });
@@ -96,7 +113,6 @@ swapsRouter.get("/activity-panel", isLoggedIn, (req, res, next) => {
       ],
     })
     .then((myUser) => {
-      console.log(myUser.swaps);
       const data = {
         isLogNav: isLogNavFn(req),
         user: myUser,

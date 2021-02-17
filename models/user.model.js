@@ -16,12 +16,12 @@ const userSchema = new Schema({
     asGiver: [{ type: mongoose.Schema.Types.ObjectId, ref: "Swap" }],
     pastSwaps: [{ type: mongoose.Schema.Types.ObjectId, ref: "Swap" }],
   },
-  notifications: [{ type: mongoose.Schema.Types.ObjectId, ref: "Swap" }],
+  notifications: { type: Number, default: 0 },
   profilePic: {
     type: String,
     default: "https://cdn.onlinewebfonts.com/svg/img_329115.png",
   },
-  joinDate: { type: Date, default: Date.now },
+  joinDate: { type: Date, default: new Date() },
 });
 
 const User = mongoose.model("User", userSchema);

@@ -37,6 +37,7 @@ router.post("/login", (req, res, next) => {
     return;
   }
   User.findOne({ username })
+    .populate("swaps.asTaker")
     .then((user) => {
       if (!user) {
         res.render("login", errorMessage);
@@ -98,10 +99,13 @@ router.post("/signup", (req, res, next) => {
 
     User.create(newUser)
       .then((user) => {
-        console.log(user);
-        req.session.currentUser = user;
+        User.findById(user._id)
+          .populate("swaps.asTaker")
+          .then((populatedUser) => {
+            req.session.currentUser = populatedUser;
 
-        res.redirect("/");
+            res.redirect("/");
+          });
       })
       .catch((err) => {
         res.render("signup", errorMessage);

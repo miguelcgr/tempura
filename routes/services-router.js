@@ -39,6 +39,8 @@ servicesRouter.get("/", (req, res, next) => {
 
 servicesRouter.get("/profile/:id", (req, res, next) => {
   const serviceId = req.params.id;
+  const { currentUser } = req.session;
+  const asTakerServices = currentUser.swaps.asTaker.map((swap) => swap.service);
 
   if (req.session.currentUser) {
     if (req.session.currentUser.services.includes(serviceId)) {
@@ -49,6 +51,17 @@ servicesRouter.get("/profile/:id", (req, res, next) => {
             service: foundService,
           };
           res.render("service-profile-own", data);
+        })
+        .catch((err) => console.log(err));
+    } else if (asTakerServices.includes(serviceId)) {
+      Service.findById(serviceId)
+        .populate("giverUser")
+        .then((foundService) => {
+          const data = {
+            isLogNav: isLogNavFn(req),
+            service: foundService,
+          };
+          res.render("service-profile-logged-in-requested", data);
         })
         .catch((err) => console.log(err));
     } else {
@@ -95,7 +108,6 @@ servicesRouter.post("/create", (req, res, next) => {
   };
   Service.create(newService)
     .then((data) => {
-      console.log(data);
       res.render("/users/my-profile");
     })
     .catch((err) => console.log(err));
