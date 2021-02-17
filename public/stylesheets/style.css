@@ -80,7 +80,7 @@ main a :hover {
   align-items: center;
   width: 30vw;
   height: 20vh;
-  font-size: 2rem;
+  font-size: 2em;
   text-align: center;
 }
 
@@ -95,7 +95,7 @@ main a :hover {
 
 #home form button {
   margin-top: 10px;
-  font-size: 1.3rem;
+  font-size: 1rem;
   width: 30%;
   height: 40px;
   border: 0px;
@@ -161,8 +161,9 @@ footer {
   display: flex;
 }
 
-.wrap {
-  margin: 5%;
+#user-profile li img {
+  width: 100px;
+  height: 100px;
 }
 
 #activity-panel div {
