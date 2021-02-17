@@ -3,8 +3,9 @@
 <main id="activity-panel">
 <h1>Activity panel</h1>
 <h3>Your user: {{user.username}}</h3>
-
-<h4>Requested Swaps</h4>
+<br>
+<br>
+<h3>Requested Swaps</h3>  <!-- asGiver --->
 <div>
 {{#each user.swaps.asGiver}}
 <article>
@@ -13,18 +14,26 @@
   <p>{{this.takerUser.fname}} {{this.takerUser.lname}} is asking for this service.</p>
   <p><em>Petition date: {{this.creationDate}}</em></p>
 
-  {{#if this.giverAccept}}
-    <p><strong>Accepted!</strong></p>
-    <p>Call {{this.takerUser.fname}} at {{this.takerUser.phone}}!</p>
-  {{else}}
+  {{#if this.status1}}
     <a href="/swaps/{{this._id}}/accept">Accept</a>
     <a href="/swaps/{{this._id}}/reject">Reject</a>
   {{/if}}
 
+  {{#if this.status2}}
+    <p class = "green"><strong>Accepted!</strong></p>
+    <p>Call {{this.takerUser.fname}} at {{this.takerUser.phone}}!</p>
+  {{/if}}
+
+  {{#if this.status3}}
+    <p class = "red"><strong>You rejected this request.</strong></p>
+    <a href="/swaps/{{this._id}}/delete-as-giver" class = "red">Delete</a>
+    <a href="/swaps/{{this._id}}/reconsider">Reconsider</a>
+  {{/if}}
 </article>
 {{/each}}
 </div>
-<h4>Pending Swaps</h4>
+<br>
+<h3>Pending Swaps</h3>    <!-- asTaker --->
 <div>
 {{#each user.swaps.asTaker}}
 <article>
@@ -32,10 +41,29 @@
   <p><strong>{{this.service.name}}</strong></p>
   <p>You asked {{this.giverUser.fname}} {{this.giverUser.lname}}</p>
   <p><em>Petition date: {{this.creationDate}}</em></p>
+
+  {{#if this.status1}}
+  <p class = "yellow">Pending request</p>
+  {{/if}}
+
+  {{#if this.status2}}
+    <p class = "green"><strong>Accepted!</strong></p>
+    <p>Call {{this.giverUser.fname}} at {{this.giverUser.phone}}!</p>
+    <p>If you already received the service, please confirm:</p>
+    <a href="/swaps/{{this._id}}/complete">Confirm completion</a>
+
+  {{/if}}
+
+  {{#if this.status3}}
+    <p class = "red"><strong>Rejected!</strong></p>
+    <a href="/swaps/{{this._id}}/delete-as-taker">Delete permanently</a>
+  {{/if}}
+
 </article>
 {{/each}}
 </div>
-<h4>Past Swaps</h4>
+<br>
+<h3>Past Swaps</h3>
 <div>
 {{#each user.swaps.pastSwaps}}
 <article>

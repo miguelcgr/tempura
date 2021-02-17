@@ -23,6 +23,40 @@ function isLogNavFn(req) {
 
 // already in /swaps
 
+swapsRouter.get("/activity-panel", isLoggedIn, (req, res, next) => {
+  User.findById(req.session.currentUser._id)
+    //.populate("swaps.asTaker swaps.asGiver swaps.pastSwaps")
+    .populate({
+      path: "swaps",
+      populate: [
+        {
+          path: "asTaker",
+          model: "Swap",
+          populate: "giverUser takerUser service",
+        },
+        {
+          path: "asGiver",
+          model: "Swap",
+          populate: "giverUser takerUser service",
+        },
+        {
+          path: "pastSwaps",
+          model: "Swap",
+          populate: "giverUser takerUser service",
+        },
+      ],
+    })
+    .then((myUser) => {
+      const data = {
+        isLogNav: isLogNavFn(req),
+        user: myUser,
+      };
+      req.session.currentUser = myUser;
+      res.render("activity-panel", data);
+    })
+    .catch((err) => console.log(err));
+});
+
 swapsRouter.post("/create/:id", (req, res, next) => {
   const serviceId = req.params.id;
   const takerUserId = req.session.currentUser._id;
@@ -89,44 +123,14 @@ swapsRouter.post("/create/:id", (req, res, next) => {
     .catch((err) => console.log(err));
 });
 
-swapsRouter.get("/activity-panel", isLoggedIn, (req, res, next) => {
-  User.findById(req.session.currentUser._id)
-    //.populate("swaps.asTaker swaps.asGiver swaps.pastSwaps")
-    .populate({
-      path: "swaps",
-      populate: [
-        {
-          path: "asTaker",
-          model: "Swap",
-          populate: "giverUser takerUser service",
-        },
-        {
-          path: "asGiver",
-          model: "Swap",
-          populate: "giverUser takerUser service",
-        },
-        {
-          path: "pastSwaps",
-          model: "Swap",
-          populate: "giverUser takerUser service",
-        },
-      ],
-    })
-    .then((myUser) => {
-      const data = {
-        isLogNav: isLogNavFn(req),
-        user: myUser,
-      };
-      res.render("activity-panel", data);
-    })
-    .catch((err) => console.log(err));
-});
-
+// giver actions
 swapsRouter.get("/:id/accept", (req, res, next) => {
   const swapId = req.params.id;
   Swap.findByIdAndUpdate(swapId, {
     giverAccept: true,
     giverAcceptTime: new Date(),
+    status1: false,
+    status2: true,
   })
     .then(() => {
       res.redirect("/swaps/activity-panel");
@@ -139,7 +143,136 @@ swapsRouter.get("/:id/reject", (req, res, next) => {
   Swap.findByIdAndUpdate(swapId, {
     giverAccept: false,
     giverAcceptTime: new Date(),
+    status1: false,
+    status3: true,
   })
+    .then(() => {
+      res.redirect("/swaps/activity-panel");
+    })
+    .catch((err) => console.log(err));
+});
+
+swapsRouter.get("/:id/reconsider", (req, res, next) => {
+  const swapId = req.params.id;
+  Swap.findByIdAndUpdate(swapId, {
+    giverAccept: undefined,
+    giverAcceptTime: undefined,
+    status1: true,
+    status3: false,
+  })
+    .then(() => {
+      res.redirect("/swaps/activity-panel");
+    })
+    .catch((err) => console.log(err));
+});
+
+// taker actions
+// swapsRouter.get('/:id/complete')
+
+// swapsRouter.get('/:id/remove')
+
+// common action giver & taker
+swapsRouter.get("/:id/delete-as-taker", (req, res, next) => {
+  const swapId = req.params.id;
+  let giverId;
+  let takerId;
+  Swap.findById(swapId)
+    .then((swapInfo) => {
+      giverId = swapInfo.giverUser;
+      takerId = swapInfo.takerUser;
+      const pr = User.findById(giverId);
+      return pr;
+    })
+    .then((giverUser) => {
+      const asGiverArr = giverUser.swaps.asGiver;
+
+      const updatedGiverArr = asGiverArr.filter((swap) => swap != swapId);
+
+      const pr = User.findByIdAndUpdate(
+        giverId,
+        {
+          "swaps.asGiver": updatedGiverArr,
+        },
+        { new: true }
+      );
+      return pr;
+    })
+    .then(() => {
+      const pr = User.findById(takerId);
+      return pr;
+    })
+    .then((takerUser) => {
+      const asTakerArr = takerUser.swaps.asTaker;
+
+      const updatedTakerArr = asTakerArr.filter((swap) => swap != swapId);
+      const pr = User.findByIdAndUpdate(
+        takerId,
+        {
+          "swaps.asTaker": updatedTakerArr,
+        },
+        { new: true }
+      );
+      return pr;
+    })
+    .then((updatedTaker) => {
+      req.session.currentUser = updatedTaker;
+      const pr = Swap.findByIdAndDelete(swapId);
+      return pr;
+    })
+    .then(() => {
+      res.redirect("/swaps/activity-panel");
+    })
+    .catch((err) => console.log(err));
+});
+
+swapsRouter.get("/:id/delete-as-giver", (req, res, next) => {
+  const swapId = req.params.id;
+  let giverId;
+  let takerId;
+  Swap.findById(swapId)
+    .then((swapInfo) => {
+      giverId = swapInfo.giverUser;
+      takerId = swapInfo.takerUser;
+      const pr = User.findById(giverId);
+      return pr;
+    })
+    .then((giverUser) => {
+      const asGiverArr = giverUser.swaps.asGiver;
+
+      const updatedGiverArr = asGiverArr.filter((swap) => swap != swapId);
+
+      const pr = User.findByIdAndUpdate(
+        giverId,
+        {
+          "swaps.asGiver": updatedGiverArr,
+        },
+        { new: true }
+      );
+      return pr;
+    })
+    .then((updatedGiver) => {
+      req.session.currentUser = updatedGiver;
+
+      const pr = User.findById(takerId);
+      return pr;
+    })
+    .then((takerUser) => {
+      const asTakerArr = takerUser.swaps.asTaker;
+
+      const updatedTakerArr = asTakerArr.filter((swap) => swap != swapId);
+      const pr = User.findByIdAndUpdate(
+        takerId,
+        {
+          "swaps.asTaker": updatedTakerArr,
+        },
+        { new: true }
+      );
+      return pr;
+    })
+    .then((updatedTaker) => {
+      const pr = Swap.findByIdAndDelete(swapId);
+      return pr;
+    })
     .then(() => {
       res.redirect("/swaps/activity-panel");
     })
