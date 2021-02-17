@@ -1,16 +1,23 @@
 {{> navbar isLogNav}}
 
+<main id= "service-results">
 <h1>Services search results</h1>
 <ul>
     {{#each servicesArr}}
         <li>
             <article>
-                <p><a href="/services/profile/{{_id}}"><b>{{name}}</b></a></p>
+                <img src="{{this.picture}}" alt="{{this.name}}">
+                <div>
+                <h3><a href="/services/profile/{{_id}}"><strong>{{name}}</strong></a></h3>
+                <p>Offered by: <a href="/users/profile/{{this.giverUser._id}}">{{this.giverUser.fname}} {{this.giverUser.lname}}</a></p>
+                <br>
                 <p>{{description}}</p>
                 <p>Location: {{location}}</p>
                 <p>Duration: {{duration}} hour(s)</p>
                 <p>Category: {{category}}</p>
+                </div>
             </article>
         </li>
 {{/each}}
 </ul>
+</main>
