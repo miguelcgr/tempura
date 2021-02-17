@@ -167,9 +167,35 @@ swapsRouter.get("/:id/reconsider", (req, res, next) => {
 });
 
 // taker actions
-// swapsRouter.get('/:id/complete')
+swapsRouter.get("/:id/complete", (req, res, next) => {
+  const swapId = req.params.id;
+  let giverId;
+  let takerId;
+  let swapDuration;
+  let takerBalance;
+  let giverBalance;
 
-// swapsRouter.get('/:id/remove')
+  // buscar el Swap y
+  // añadirle takerConfirmation y la hora
+  // guardar duration
+  // guardar takerId y giverId
+
+  // buscar taker y recoger su array de asTaker y array de pastSwap
+  // modificar array asTaker quitando swapId
+  // modificar array pastSwap añadiendo swapId
+  // coger takerBalance
+
+  // buscar taker y update con los datos:
+  // nuevo asTaker array
+  // nuevo pastArray
+  // actualizar balance taker con duration
+
+  // actualizar cookie
+
+  // lo mismo giver
+
+  // lo mismo giver (2)
+});
 
 // common action giver & taker
 swapsRouter.get("/:id/delete-as-taker", (req, res, next) => {
