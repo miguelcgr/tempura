@@ -90,26 +90,88 @@ main a :hover {
   height: 35px;
   border-radius: 4px;
   border: 0px;
-  padding: 5px;
+  padding: 7px 17px;
 }
 
 #home form button {
   margin-top: 10px;
   font-size: 1rem;
-  width: 30%;
+  width: 200px;
   height: 40px;
-  border: 0px;
-  border-radius: 3px;
+  border: 1px solid #000000;
+  border-radius: 5px;
 }
 
 #service-profile {
-  margin: 20px 0 0 20px;
+  margin: 30px 0 0 20px;
 }
 
 #service-profile img {
   width: 300px;
   height: auto;
-  margin: 20px 0;
+}
+
+#service-profile section {
+  display: flex;
+}
+
+#service-profile #main-content {
+  margin: 0 0 10px 20px;
+}
+
+#service-profile .button {
+  margin: 0 0 10px 20px;
+  font-size: 1rem;
+  width: 100px;
+  height: 40px;
+  border: 1px solid #cf2f2a;
+  border-radius: 5px;
+  text-align: center;
+  text-decoration: none;
+  padding: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#service-profile input {
+  width: 60px;
+  height: 30px;
+  font-size: 1.5em;
+  font-weight: 700;
+  color: #cf2f2a;
+  text-align: center;
+}
+
+#second-section {
+  margin-top: 40px;
+  display: flex;
+  flex-direction: column;
+}
+
+#second-section .button {
+  margin-bottom: 10px;
+}
+
+#second-section div {
+  display: flex;
+}
+
+.request-button {
+  margin: 0 0 10px 0;
+  font-size: 1rem;
+  width: 100px;
+  height: 40px;
+  border: 1px solid #cf2f2a;
+  background-color: #cf2f2a;
+  color: white;
+  border-radius: 5px;
+  text-align: center;
+  text-decoration: none;
+  padding: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 footer {
@@ -166,6 +228,21 @@ footer {
   height: 100px;
 }
 
+#user-profile .button {
+  margin-top: 10px;
+  font-size: 1rem;
+  width: 100px;
+  height: 40px;
+  border: 1px solid #cf2f2a;
+  border-radius: 5px;
+  text-align: center;
+  text-decoration: none;
+  padding: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 #activity-panel div {
   display: flex;
   flex-wrap: wrap;
@@ -195,6 +272,10 @@ footer {
 .red {
   font-weight: 900;
   color: red;
+}
+
+.tempura-color {
+  color: #cf2f2a;
 }
 
 #service-results {

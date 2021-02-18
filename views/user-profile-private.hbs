@@ -15,7 +15,7 @@
       <p>balance: {{user.balance}}</p>
       <p>User since: {{user.joinDate}} </p>
     </div>
-    <a href="/users/my-profile/edit"><button type='submit'>Edit profile</button></a>
+    <a href="/users/my-profile/edit" class="button">Edit profile</a>
     </section>
 
     <div>
@@ -32,6 +32,7 @@
               <p>Duration: {{this.duration}} hour(s)</p>
               <p>Category: {{this.category}}</p>
             </div>
+            <a href="/services/delete/{{this._id}}" class="button">Delete service</a>
           </li>
           {{/each}}
     </ul>
