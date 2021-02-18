@@ -189,20 +189,16 @@ swapsRouter.get("/:id/complete", (req, res, next) => {
       return pr;
     })
     .then((takerUser) => {
-      let asTakerSwapsArr = takerUser.swaps.asTaker;
-      let pastSwapsArr = takerUser.swaps.pastSwaps;
-      let updatedPastSwapsArr = [];
-
+      const asTakerSwapsArr = takerUser.swaps.asTaker;
+      const pastSwapsArr = takerUser.swaps.pastSwaps;
       const updatedBalance = takerUser.balance - swapHours;
+
       const updatedAsTakerSwapsArr = asTakerSwapsArr.filter(
-        (swap) => swap !== swapId
+        (swap) => swap != swapId
       );
 
-      if (pastSwapsArr.length === 0) {
-        updatedPastSwapsArr.push(swapId);
-      } else {
-        updatedPastSwapsArr = pastSwapsArr.filter((swap) => swap).push(swapId);
-      }
+      const updatedPastSwapsArr = [...pastSwapsArr];
+      updatedPastSwapsArr.push(swapId);
 
       const pr = User.findByIdAndUpdate(
         takerId,
@@ -222,26 +218,22 @@ swapsRouter.get("/:id/complete", (req, res, next) => {
       return pr;
     })
     .then((giverUser) => {
-      let asGiverSwaps = giverUser.swaps.asGiver;
-      let pastSwaps = giverUser.swaps.pastSwaps;
-      let updatedPastSwaps = [];
+      const asGiverSwapsArr = giverUser.swaps.asGiver;
+      const pastSwapsArr = giverUser.swaps.pastSwaps;
 
       const updatedBalance = giverUser.balance + swapHours;
-      const updatedAsGiverSwaps = asGiverSwaps.filter(
-        (swap) => swap !== swapId
+      const updatedAsGiverSwapsArr = asGiverSwapsArr.filter(
+        (swap) => swap != swapId
       );
 
-      if (pastSwaps.length === 0) {
-        updatedPastSwaps.push(swapId);
-      } else {
-        updatedPastSwaps = pastSwaps.filter((swap) => swap).push(swapId);
-      }
+      const updatedPastSwapsArr = [...pastSwapsArr];
+      updatedPastSwapsArr.push(swapId);
 
       const pr = User.findByIdAndUpdate(
         giverId,
         {
-          "swaps.asGiver": updatedAsGiverSwaps,
-          "swaps.pastSwaps": updatedPastSwaps,
+          "swaps.asGiver": updatedAsGiverSwapsArr,
+          "swaps.pastSwaps": updatedPastSwapsArr,
           balance: updatedBalance,
         },
         { new: true }
