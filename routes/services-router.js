@@ -1,6 +1,8 @@
 var express = require("express");
 var servicesRouter = express.Router();
 
+const fileUploader = require('../configs/cloudinary.config');
+
 const User = require("./../models/user.model");
 const Service = require("./../models/service.model");
 
@@ -97,7 +99,7 @@ servicesRouter.get("/create", isLoggedIn, (req, res, next) => {
   res.render("service-create", { isLogNav: isLogNavFn(req) });
 });
 
-servicesRouter.post("/create", (req, res, next) => {
+servicesRouter.post("/create", fileUploader.single('service-picture'),(req, res, next) => {
   const { name, description, location, duration, category } = req.body;
   const newService = {
     name,
@@ -106,7 +108,7 @@ servicesRouter.post("/create", (req, res, next) => {
     location,
     duration,
     category,
-    picture: [],
+    picture: req.file.path,
     dateAdded: new Date(),
   };
   Service.create(newService)

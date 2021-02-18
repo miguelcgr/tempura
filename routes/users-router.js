@@ -1,6 +1,8 @@
 var express = require("express");
 var usersRouter = express.Router();
 
+const fileUploader = require('../configs/cloudinary.config');
+
 const User = require("./../models/user.model");
 //const Service = require("./../models/service.model");
 
@@ -59,9 +61,9 @@ usersRouter.get("/my-profile/edit", isLoggedIn, (req, res, next) => {
   res.render("edit-profile", data);
 });
 
-usersRouter.post("/edit-profile", isLoggedIn, (req, res, next) => {
-  const { username, fname, lname, email, phone, location } = req.body;
-  const updatedData = { username, fname, lname, email, phone, location };
+usersRouter.post("/edit-profile", isLoggedIn, fileUploader.single('picture'),(req, res, next) => {
+  const { username, fname, lname, email, phone, location } = req.body; /// /// / / / // /
+  const updatedData = { username, fname, lname, email, phone, location, profilePic:req.file.path, };
 
   const userID = req.session.currentUser._id;
   User.findByIdAndUpdate(userID, updatedData, { new: true })

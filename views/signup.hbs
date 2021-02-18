@@ -2,7 +2,7 @@
 
 <h1>signup</h1>
 
-<form action='/signup' method='POST'>
+<form action='/signup' method='POST' enctype="multipart/form-data">
 
 <h2>Create a new user in Tempura</h2>
 
@@ -28,7 +28,8 @@
   <input type='text' name='location' minlength="4" placeholder="Poblenou" required>
 
   <label for=''>Add profile picture</label>
-  <!-- <input type='file' name='profile-picture' > -->
+ <input type="file" name="picture" id=""/>
+
 
   <h2>Create a new service in Tempura</h2>
 
@@ -42,7 +43,7 @@
   <!-- <input type='file' name='service-pictures' > -->
 
   <label for=''>Service location</label>
-  <input type='text' name='service-location' minlength="3" placeholder="Poblenou">
+  <input type='text' name='servLocation' minlength="3" placeholder="Poblenou">
 
   <label for=''>Service duration in hours</label>
   <input type='number' name='service-duration' value="1" placeholder="1">
