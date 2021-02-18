@@ -102,16 +102,10 @@ swapsRouter.post("/create/:id", (req, res, next) => {
         giverUserId,
         {
           $push: { "swaps.asGiver": newSwapId },
+          $inc: { notifications: 1 },
         },
         { new: true }
       );
-      return pr;
-    })
-    .then((updatedGiver) => {
-      const newNotification = updatedGiver.notifications + 1;
-      const pr = User.findByIdAndUpdate(giverUserId, {
-        notifications: newNotification,
-      });
       return pr;
     })
     .then(() => {
@@ -126,12 +120,37 @@ swapsRouter.post("/create/:id", (req, res, next) => {
 // giver actions
 swapsRouter.get("/:id/accept", (req, res, next) => {
   const swapId = req.params.id;
-  Swap.findByIdAndUpdate(swapId, {
-    giverAccept: true,
-    giverAcceptTime: new Date(),
-    status1: false,
-    status2: true,
-  })
+  let giverId;
+  let takerId;
+
+  Swap.findByIdAndUpdate(
+    swapId,
+    {
+      giverAccept: true,
+      giverAcceptTime: new Date(),
+      status1: false,
+      status2: true,
+    },
+    { new: true }
+  )
+    .then((updatedSwap) => {
+      giverId = updatedSwap.giverUser;
+      takerId = updatedSwap.takerUser;
+      const pr = User.findByIdAndUpdate(
+        giverId,
+        { $inc: { notifications: -1 } },
+        { new: true }
+      );
+      return pr;
+    })
+    .then(() => {
+      User.findByIdAndUpdate(
+        takerId,
+        { $inc: { notifications: 1 } },
+        { new: true }
+      );
+      return pr;
+    })
     .then(() => {
       res.redirect("/swaps/activity-panel");
     })

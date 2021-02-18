@@ -62,7 +62,7 @@ usersRouter.post(
   isLoggedIn,
   fileUploader.single("picture"),
   (req, res, next) => {
-    const { username, fname, lname, email, phone, location } = req.body; /// /// / / / // /
+    const { username, fname, lname, email, phone, location } = req.body;
     const updatedData = {
       username,
       fname,
