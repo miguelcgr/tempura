@@ -8,20 +8,6 @@ const Service = require("./../models/service.model");
 
 const { isLoggedIn } = require("../util/middleware");
 
-function isLogNavFn(req) {
-  let data;
-  if (req.session.currentUser) {
-    data = {
-      isLogNav: true,
-    };
-  } else {
-    data = {
-      isLogNav: false,
-    };
-  }
-  return data;
-}
-
 function getNavUserData(req) {
   let data;
   if (req.session.currentUser) {
@@ -42,7 +28,6 @@ servicesRouter.get("/", (req, res, next) => {
     .populate("giverUser")
     .then((servicesArr) => {
       const injectData = {
-        isLogNav: isLogNavFn(req),
         servicesArr: servicesArr,
         navUserData: getNavUserData(req),
       };
@@ -63,7 +48,6 @@ servicesRouter.get("/profile/:id", (req, res, next) => {
       Service.findById(serviceId)
         .then((foundService) => {
           const data = {
-            isLogNav: isLogNavFn(req),
             service: foundService,
           };
           res.render("service-profile-own", data);
@@ -74,7 +58,6 @@ servicesRouter.get("/profile/:id", (req, res, next) => {
         .populate("giverUser")
         .then((foundService) => {
           const injectData = {
-            isLogNav: isLogNavFn(req),
             service: foundService,
             navUserData: getNavUserData(req),
           };
@@ -86,7 +69,6 @@ servicesRouter.get("/profile/:id", (req, res, next) => {
         .populate("giverUser")
         .then((foundService) => {
           const injectData = {
-            isLogNav: isLogNavFn(req),
             service: foundService,
           };
           res.render("service-profile-logged-in", injectData);
@@ -98,7 +80,6 @@ servicesRouter.get("/profile/:id", (req, res, next) => {
       .populate("giverUser")
       .then((foundService) => {
         const injectData = {
-          isLogNav: isLogNavFn(req),
           service: foundService,
           navUserData: getNavUserData(req),
         };
@@ -110,7 +91,6 @@ servicesRouter.get("/profile/:id", (req, res, next) => {
 
 servicesRouter.get("/create", isLoggedIn, (req, res, next) => {
   const injectData = {
-    isLogNav: isLogNavFn(req),
     navUserData: getNavUserData(req),
   };
   res.render("service-create", injectData);
@@ -140,7 +120,6 @@ servicesRouter.get("/profile/:id/edit", isLoggedIn, (req, res, next) => {
   Service.findById(serviceId)
     .then((foundService) => {
       const injectData = {
-        isLogNav: isLogNavFn(req),
         service: foundService,
         navUserData: getNavUserData(req),
       };

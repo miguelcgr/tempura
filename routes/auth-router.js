@@ -1,6 +1,6 @@
 var express = require("express");
 var router = express.Router();
-const fileUploader = require('../configs/cloudinary.config');
+const fileUploader = require("../configs/cloudinary.config");
 
 const User = require("./../models/user.model");
 const Service = require("./../models/service.model");
@@ -14,23 +14,6 @@ const bcrypt = require("bcrypt");
 const saltRounds = 10;
 
 // function that chooses which navbar to show
-function isLogNavFn(req) {
-  let data;
-  if (req.session.currentUser) {
-    /* data = {
-      isLogNav: true,
-    };*/
-    data = true;
-  } else {
-    /*data = {
-      isLogNav: false,
-    };*/
-    data = false;
-  }
-
-  return data;
-}
-
 function getNavUserData(req) {
   let data;
   if (req.session.currentUser) {
@@ -44,7 +27,6 @@ function getNavUserData(req) {
 // General routes: index, log in, sign up & log out
 router.get("/", (req, res, next) => {
   const injectData = {
-    isLogNav: isLogNavFn(req),
     navUserData: getNavUserData(req),
   };
   res.render("index", injectData);
@@ -57,7 +39,6 @@ router.post("/login", (req, res, next) => {
 
   const injectData = {
     errorMessage: errorMessage,
-    isLogNav: isLogNavFn(req),
     navUserData: getNavUserData(req),
   };
 
@@ -87,70 +68,75 @@ router.post("/login", (req, res, next) => {
 
 router.get("/signup", (req, res, next) => res.render("signup"));
 
-router.post("/signup", fileUploader.single('picture'), (req, res, next) => {
-  const {
-    username,
-    password,
-    fname,
-    lname,
-    email,
-    phone,
-    location,
-    profilePic,
-    name,
-    description,
-    servLocation,
-    duration,
-    category,
-    picture,
-  } = req.body;
+router.post(
+  "/signup",
+  fileUploader.single("picture"),
+  // fileUploader.single("profilePic"),
+  (req, res, next) => {
+    const {
+      username,
+      password,
+      fname,
+      lname,
+      email,
+      phone,
+      location,
+      profilePic,
+      name,
+      description,
+      servLocation,
+      duration,
+      category,
+      picture,
+    } = req.body;
 
-  const injectData = {
-    errorMessage: errorMessage,
-    isLogNav: isLogNavFn(req),
-  };
+    const injectData = {
+      errorMessage: errorMessage,
+    };
 
-  if (username === "" || password === "") {
-    res.render("signup", injectData);
-    return;
-  }
-
-  User.findOne({ username: username }).then((user) => {
-    if (user !== null) {
+    if (username === "" || password === "") {
       res.render("signup", injectData);
       return;
     }
 
-    const salt = bcrypt.genSaltSync(saltRounds);
-    const hiddenPassword = bcrypt.hashSync(password, salt);
-
-    const newUser = {
-      username,
-      fname,
-      lname,
-      email,
-      password: hiddenPassword,
-      phone,
-      location,
-      profilePic:req.file.path,              // ---__--__-_-_-cambios
-      joinDate: new Date(),
-    };
-
-    User.create(newUser)
-      .then((user) => {
-        User.findById(user._id)
-          .populate("swaps.asTaker")
-          .then((populatedUser) => {
-            req.session.currentUser = populatedUser;
-
-            res.redirect("/");
-          });
-      })
-      .catch((err) => {
+    User.findOne({ username: username }).then((user) => {
+      if (user !== null) {
         res.render("signup", injectData);
-      });
-  });
-});
+        return;
+      }
+
+      const salt = bcrypt.genSaltSync(saltRounds);
+      const hiddenPassword = bcrypt.hashSync(password, salt);
+
+      const newUser = {
+        username,
+        fname,
+        lname,
+        email,
+        password: hiddenPassword,
+        phone,
+        location,
+        profilePic: req.file.path,
+        joinDate: new Date(),
+      };
+
+      User.create(newUser)
+        .then((user) => {
+          const pr = User.findById(user._id).populate("swaps.asTaker");
+          return pr;
+        })
+        .then((populatedUser) => {
+          req.session.currentUser = populatedUser;
+          res.render("service-create", {
+            welcomeMessage: true,
+          });
+        })
+        .catch((err) => {
+          res.render("signup", injectData);
+        });
+    });
+  }
+);
 
 router.get("/logout", (req, res, next) => {
   req.session.destroy((err) => {
