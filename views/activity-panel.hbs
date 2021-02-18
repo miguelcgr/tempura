@@ -10,7 +10,7 @@
 {{#each user.swaps.asGiver}}
 <article>
   <img src="{{this.service.picture}}" alt="{{this.service.name}}">
-  <p><strong>{{this.service.name}}</strong></p>
+  <a href="/services/profile/{{this.service._id}}"><h3>{{this.service.name}}</strong></h3></a>
   <p>{{this.takerUser.fname}} {{this.takerUser.lname}} is asking for this service.</p>
   <p><em>Petition date: {{this.creationDate}}</em></p>
 
@@ -38,7 +38,7 @@
 {{#each user.swaps.asTaker}}
 <article>
   <img src="{{this.service.picture}}" alt="{{this.service.name}}">
-  <p><strong>{{this.service.name}}</strong></p>
+  <a href="/services/profile/{{this.service._id}}"><h3>{{this.service.name}}</strong></h3></a>
   <p>You asked {{this.giverUser.fname}} {{this.giverUser.lname}}</p>
   <p><em>Petition date: {{this.creationDate}}</em></p>
 
@@ -68,7 +68,7 @@
 {{#each user.swaps.pastSwaps}}
 <article>
   <img src="{{this.service.picture}}" alt="{{this.service.name}}">
-  <p><strong>{{this.service.name}}</strong></p>
+  <a href="/services/profile/{{this.service._id}}"><h3>{{this.service.name}}</strong></h3></a>
   <p>Host: {{this.giverUser.fname}} {{this.giverUser.lname}}</p>
   <p>Guest: {{this.takerUser.fname}} {{this.takerUser.lname}}</p>
   <p><em>Finished on: {{this.takerConfirmationTime}}</em></p>

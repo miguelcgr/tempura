@@ -48,6 +48,7 @@ app.use(
   })
 );
 
+// saved & updated user data Middleware
 app.use(setLocals);
 
 app.use("/", authRouter);
