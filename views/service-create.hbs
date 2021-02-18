@@ -1,5 +1,13 @@
 <main>
+
+{{#if welcomeMessage}}
+<h1>Welcome to Tempura!</h1>
+<br>
+<h3>In order to participate in the community, you have to create your first service.</h3>
+<br>
+{{else}}
 <h1>Create a new service in Tempura</h1>
+{{/if}}
 
   <form action='/services/create' method='POST' enctype="multipart/form-data">
 

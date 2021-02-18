@@ -7,20 +7,6 @@ const Swap = require("../models/swap.model");
 
 const { isLoggedIn } = require("../util/middleware");
 
-function isLogNavFn(req) {
-  let data;
-  if (req.session.currentUser) {
-    data = {
-      isLogNav: true,
-    };
-  } else {
-    data = {
-      isLogNav: false,
-    };
-  }
-  return data;
-}
-
 function getNavUserData(req) {
   let data;
   if (req.session.currentUser) {
@@ -60,7 +46,6 @@ swapsRouter.get("/activity-panel", isLoggedIn, (req, res, next) => {
     })
     .then((myUser) => {
       const injectData = {
-        isLogNav: isLogNavFn(req),
         navUserData: getNavUserData(req),
         user: myUser,
       };
