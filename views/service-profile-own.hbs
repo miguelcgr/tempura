@@ -1,15 +1,26 @@
 {{> navbar isLogNav}}
 <main id= "service-profile">
-<h1>{{service.name}}</h1>
-<a href="/services/profile/{{service._id}}/edit">Edit service</a>
 
-<img src={{service.picture.[0]}} alt="Service Picture">
-<p>Date added: {{service.dateAdded}}</p>
-<br>
-<p>Location: {{service.location}}</p>
-<p>Duration: {{service.duration}} hours</p>
-<p>Category: {{service.category}}</p>
-<p>Date added: {{service.dateAddeed}}</p>
-<p>{{service.description}}</p>
 
+<section>
+    <div>
+    <img src={{service.picture.[0]}} alt="{{service.name}}">
+    </div>
+
+    <div id="main-content">
+        <h1>{{service.name}}</h1>
+        <h3>{{service.description}}</h3>
+        <br><br>
+        <p>Date added: {{service.dateAdded}}</p>
+        <p>Location: {{service.location}}</p>
+        <p>Duration: {{service.duration}} hours</p>
+        <p>Category: {{service.category}}</p>
+        <p>Date added: {{service.dateAddeed}}</p>
+    </div>
+
+    <div>
+        <a href="/services/profile/{{service._id}}/edit" class="button">Edit service</a>
+        <a href="/services/delete/{{service._id}}" class="button">Delete service</a>
+    </div>
+</section>
 </main>

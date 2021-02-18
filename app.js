@@ -17,6 +17,8 @@ const usersRouter = require("./routes/users-router");
 const servicesRouter = require("./routes/services-router");
 const swapsRouter = require("./routes/swaps-router");
 
+const { setLocals } = require("./util/middleware");
+
 const app = express();
 
 require("./configs/db.config");
@@ -45,6 +47,8 @@ app.use(
     }),
   })
 );
+
+app.use(setLocals);
 
 app.use("/", authRouter);
 app.use("/users", usersRouter);
