@@ -1,5 +1,6 @@
 var express = require("express");
 var usersRouter = express.Router();
+const fileUploader = require('../configs/cloudinary.config');
 
 const User = require("./../models/user.model");
 //const Service = require("./../models/service.model");
@@ -64,7 +65,7 @@ usersRouter.get("/my-profile/edit", isLoggedIn, (req, res, next) => {
   res.render("edit-profile", data);
 });
 
-usersRouter.post("/edit-profile", isLoggedIn, (req, res, next) => {
+usersRouter.post("/edit-profile", isLoggedIn, fileUploader.single('profile-pic'), (req, res, next) => {
   const {username, fname, lname, email, phone, location} = req.body;
   const updatedData = {username, fname, lname, email, phone, location};
   
@@ -80,3 +81,12 @@ usersRouter.post("/edit-profile", isLoggedIn, (req, res, next) => {
 
 
 module.exports = usersRouter;
+/*
+/////////
+router.get('/movies/:id/edit', (req, res) => {
+  const { id } = req.params;
+  Movie.findById(id)
+    .then(movieToEdit => res.render('movie-edit', movieToEdit))
+    .catch(error => console.log(`Error while getting a single movie for edit: ${error}`));
+});
+*/
