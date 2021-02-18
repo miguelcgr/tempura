@@ -74,8 +74,8 @@ usersRouter.get("/my-profile/edit", isLoggedIn, (req, res, next) => {
   res.render("edit-profile", data);
 });
 
-usersRouter.post("/edit-profile", isLoggedIn, fileUploader.single('picture'),(req, res, next) => {
-  const { username, fname, lname, email, phone, location } = req.body; /// /// / / / // /
+usersRouter.post("/edit-profile", isLoggedIn, fileUploader.single('picture'),(req, res, next) => {     // /// //
+  const { username, fname, lname, email, phone, location } = req.body;                         /// /// / / / // /
   const updatedData = { username, fname, lname, email, phone, location, profilePic:req.file.path, };
 
   const userID = req.session.currentUser._id;
