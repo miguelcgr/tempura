@@ -1,7 +1,7 @@
 <main>
 <h1>Create a new service in Tempura</h1>
 
-  <form action='/services/create' method='POST'>
+  <form action='/services/create' method='POST' enctype="multipart/form-data">
 
   <label for=''>Service name</label>
   <input type='text' name='name' minlength="3" placeholder="English lessons">
@@ -10,7 +10,9 @@
   <input type='text' name='description' minlength="3" placeholder="Give a brief explanation of the service">
 <br>
   <label for=''>Adds service pictures</label>
-  <!-- <input type='file' name='service-pictures' > -->
+  <input type="file" name="service-picture" id=""/>
+
+
 <br>
   <label for=''>Service location</label>
   <input type='text' name='servLocation' minlength="3" placeholder="Poblenou">

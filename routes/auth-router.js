@@ -1,5 +1,6 @@
 var express = require("express");
 var router = express.Router();
+const fileUploader = require('../configs/cloudinary.config');
 
 const User = require("./../models/user.model");
 const Service = require("./../models/service.model");
@@ -86,7 +87,7 @@ router.post("/login", (req, res, next) => {
 
 router.get("/signup", (req, res, next) => res.render("signup"));
 
-router.post("/signup", (req, res, next) => {
+router.post("/signup", fileUploader.single('picture'), (req, res, next) => {
   const {
     username,
     password,
@@ -131,7 +132,7 @@ router.post("/signup", (req, res, next) => {
       password: hiddenPassword,
       phone,
       location,
-      profilePic,
+      profilePic:req.file.path,              // ---__--__-_-_-cambios
       joinDate: new Date(),
     };
 
