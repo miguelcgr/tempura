@@ -12,6 +12,7 @@ const { isLoggedIn } = require("../util/middleware");
 const bcrypt = require("bcrypt");
 const saltRounds = 10;
 
+// function that chooses which navbar to show
 function isLogNavFn(req) {
   let data;
   if (req.session.currentUser) {
@@ -26,21 +27,33 @@ function isLogNavFn(req) {
   return data;
 }
 
-router.get("/", (req, res, next) => res.render("index", isLogNavFn(req)));
+// General routes: index, log in, sign up & log out
+router.get("/", (req, res, next) => {
+  const injectData = {
+    isLogNav: isLogNavFn(req),
+  };
+  res.render("index", injectData);
+});
 
 router.get("/login", (req, res, next) => res.render("login"));
 
 router.post("/login", (req, res, next) => {
   const { username, password } = req.body;
+
+  const injectData = {
+    errorMessage: errorMessage,
+    isLogNav: isLogNavFn(req),
+  };
+
   if (username === "" || password === "") {
-    res.render("login", errorMessage);
+    res.render("login", injectData);
     return;
   }
   User.findOne({ username })
     .populate("swaps.asTaker")
     .then((user) => {
       if (!user) {
-        res.render("login", errorMessage);
+        res.render("login", injectData);
         return;
       }
       const passwordCorrect = bcrypt.compareSync(password, user.password);
@@ -48,11 +61,11 @@ router.post("/login", (req, res, next) => {
         req.session.currentUser = user;
         res.redirect("/");
       } else {
-        res.render("login", errorMessage);
+        res.render("login", injectData);
       }
     })
     .catch((err) => {
-      res.render("login", errorMessage);
+      res.render("login", injectData);
     });
 });
 
@@ -69,15 +82,21 @@ router.post("/signup", (req, res, next) => {
     location,
     profilePic,
   } = req.body;
+
+  const injectData = {
+    errorMessage: errorMessage,
+    isLogNav: isLogNavFn(req),
+  };
+
   if (username === "" || password === "") {
-    res.render("signup", errorMessage);
+    res.render("signup", injectData);
     return;
   }
 
   User.findOne({ username: username }).then((user) => {
     if (user !== null) {
       res.render("signup", {
-        errorMesage: errorMessage,
+        errorMesage: injectData,
       });
       return;
     }
@@ -108,7 +127,7 @@ router.post("/signup", (req, res, next) => {
           });
       })
       .catch((err) => {
-        res.render("signup", errorMessage);
+        res.render("signup", injectData);
       });
   });
 });

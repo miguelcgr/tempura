@@ -40,10 +40,12 @@ servicesRouter.get("/", (req, res, next) => {
 
 servicesRouter.get("/profile/:id", (req, res, next) => {
   const serviceId = req.params.id;
-  const { currentUser } = req.session;
-  const asTakerServices = currentUser.swaps.asTaker.map((swap) => swap.service);
 
   if (req.session.currentUser) {
+    const { currentUser } = req.session;
+    const asTakerServices = currentUser.swaps.asTaker.map(
+      (swap) => swap.service
+    );
     if (req.session.currentUser.services.includes(serviceId)) {
       Service.findById(serviceId)
         .then((foundService) => {
@@ -136,6 +138,14 @@ servicesRouter.post("/edit/:id", isLoggedIn, (req, res, next) => {
       res.redirect(`/services/profile/${serviceId}`);
     })
     .catch((err) => console.log(err));
+});
+
+servicesRouter.get("/delete/:id", (req, res, next) => {
+  const serviceId = req.params.id;
+
+  Service.findByIdAndRemove(serviceId).then(() => {
+    res.redirect("/users/my-profile");
+  });
 });
 
 module.exports = servicesRouter;
