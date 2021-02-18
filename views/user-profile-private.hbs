@@ -1,45 +1,41 @@
-
-
-
 {{> navbar isLogNav}}
 
-
-{{main id = "user-profile"}}
-<h1>user profile private</h1>
-
+<main id = "user-profile">
 <h1>{{user.fname}} {{user.lname}}</h1>
-<div class="upper">
+
+  <section>
+    <img src= {{user.profilePic}} alt="User profile pic">
     <div>   
+      <p>username: {{user.username}}</p>
       <p>phone: {{user.phone}}</p>
       <p>email: {{user.email}}</p>
       <p>location: {{user.location}}</p>
+      <br>
+      <p><strong>Stats:</strong></p>
       <p>balance: {{user.balance}}</p>
-      <p>Stats: {{user.swaps}}</p>
       <p>User since: {{user.joinDate}} </p>
     </div>
-
     <a href="/users/my-profile/edit"><button type='submit'>Edit profile</button></a>
+    </section>
+
+    <div>
+      <p><strong>Offered services: </strong> </p>
+        <ul>
+          {{#each user.services}}
+          <li>
+              <img src= {{this.picture}} alt={{this.name}}>
+            <div>
+              <h3><a href="/services/profile/{{this._id}}">{{this.name}}</a></h3>
+              <br>
+              <p>{{this.description}}</p>
+              <p>Location: {{this.location}}</p>
+              <p>Duration: {{this.duration}} hour(s)</p>
+              <p>Category: {{this.category}}</p>
+            </div>
+          </li>
+          {{/each}}
+    </ul>
+    </div>
 
 
-
-    <img src= {{user.profilePic}} alt="User profile pic">
-</div>
-<div>
-<p>Offered services: </p>
-<ul>
-{{#each user.services}}
-<li>
- <a href="/services/{{this._id}}">{{this.name}}</a>
- <p>{{this.description}}</p>
-  <a href="/services/{{this._id}}"><img src= {{this.picture}} alt="service pic"></a>
-
-</li>
-{{/each}}
-</ul>
-
-</div>
-<!--  <p>{{user.services}}</p>  -->
-
-<!-- hours     my profile     notifications     logout ,funciona-->
-
-<!-- -->
+</main>

@@ -27,6 +27,7 @@ servicesRouter.get("/", (req, res, next) => {
   const regexStr = serviceSearch.join("|");
 
   Service.find({ name: { $regex: regexStr, $options: "i" } })
+    .populate("giverUser")
     .then((servicesArr) => {
       const data = {
         isLogNav: isLogNavFn(req),

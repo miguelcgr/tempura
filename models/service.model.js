@@ -1,5 +1,7 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
+const defaultImgUrl =
+  "https://lh3.googleusercontent.com/proxy/EYQ18Q48i6GmWkZ1oK5kMTUfqzBKc5SVrlOk5PAZcIwrJI4gyzos6at6Eyn_Vniqag63GDc-8nzyPxAfBADuEB7BRiKK-o-YcrRDyZqYgZRX9pj7d1Yjdnaruj9CftQlka2IM24FIxOLz3g";
 
 const serviceSchema = new Schema({
   name: { type: String, required: true },
@@ -23,11 +25,10 @@ const serviceSchema = new Schema({
   picture: [
     {
       type: String,
-      default:
-        "https://www.publicdomainpictures.net/pictures/300000/velka/empty-white-room.jpg",
+      default: defaultImgUrl,
     },
   ],
-  dateAdded: { type: Date, default: Date.now },
+  dateAdded: { type: Date, default: new Date() },
 });
 
 const Service = mongoose.model("Service", serviceSchema);
