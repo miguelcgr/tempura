@@ -20,7 +20,7 @@
       <p><strong>Offered services: </strong> </p>
         <ul>
           {{#each user.services}}
-          <li>
+          <li class="black">
               <img src= {{this.picture}} alt={{this.name}}>
             <div>
               <h3><a href="/services/profile/{{this._id}}">{{this.name}}</a></h3>
@@ -35,4 +35,5 @@
           {{/each}}
     </ul>
     </div>
+    <a href="/services/create" class="button">Add a new service</a>
 </main>

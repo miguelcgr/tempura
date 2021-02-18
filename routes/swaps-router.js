@@ -21,6 +21,16 @@ function isLogNavFn(req) {
   return data;
 }
 
+function getNavUserData(req) {
+  let data;
+  if (req.session.currentUser) {
+    data = req.session.currentUser;
+  } else {
+    data = false;
+  }
+  return data;
+}
+
 // already in /swaps
 
 // load the activity panel with all the swap information of the user
