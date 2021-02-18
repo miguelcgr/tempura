@@ -1,6 +1,4 @@
-{{> navbar this}}
-
-<h1>login</h1>
+<h1>Log in to Tempura</h1>
 <a href="/">go back to home</a>
 <form action='/login' method='POST'>
   <label for=''>Username</label>
@@ -11,6 +9,9 @@
 
   <button type='submit'>Submit</button>
 </form>
+
+<h4>Not a member of the Tempura community?</h4>
+<a href="/signup" class="button">sign up</a>
 
 {{#if errorMessage}}
 <p style="color:red; font-weight:700">{{errorMessage}}</p>

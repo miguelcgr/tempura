@@ -20,6 +20,16 @@ function isLogNavFn(req) {
   return data;
 }
 
+function getNavUserData(req) {
+  let data;
+  if (req.session.currentUser) {
+    data = req.session.currentUser;
+  } else {
+    data = false;
+  }
+  return data;
+}
+
 // already in /services/
 
 servicesRouter.get("/", (req, res, next) => {
@@ -29,11 +39,12 @@ servicesRouter.get("/", (req, res, next) => {
   Service.find({ name: { $regex: regexStr, $options: "i" } })
     .populate("giverUser")
     .then((servicesArr) => {
-      const data = {
+      const injectData = {
         isLogNav: isLogNavFn(req),
         servicesArr: servicesArr,
+        navUserData: getNavUserData(req),
       };
-      res.render("services-results", data);
+      res.render("services-results", injectData);
     })
     .catch((err) => console.log(err));
 });
@@ -60,22 +71,23 @@ servicesRouter.get("/profile/:id", (req, res, next) => {
       Service.findById(serviceId)
         .populate("giverUser")
         .then((foundService) => {
-          const data = {
+          const injectData = {
             isLogNav: isLogNavFn(req),
             service: foundService,
+            navUserData: getNavUserData(req),
           };
-          res.render("service-profile-logged-in-requested", data);
+          res.render("service-profile-logged-in-requested", injectData);
         })
         .catch((err) => console.log(err));
     } else {
       Service.findById(serviceId)
         .populate("giverUser")
         .then((foundService) => {
-          const data = {
+          const injectData = {
             isLogNav: isLogNavFn(req),
             service: foundService,
           };
-          res.render("service-profile-logged-in", data);
+          res.render("service-profile-logged-in", injectData);
         })
         .catch((err) => console.log(err));
     }
@@ -83,27 +95,32 @@ servicesRouter.get("/profile/:id", (req, res, next) => {
     Service.findById(serviceId)
       .populate("giverUser")
       .then((foundService) => {
-        const data = {
+        const injectData = {
           isLogNav: isLogNavFn(req),
           service: foundService,
+          navUserData: getNavUserData(req),
         };
-        res.render("service-profile-public", data);
+        res.render("service-profile-public", injectData);
       })
       .catch((err) => console.log(err));
   }
 });
 
 servicesRouter.get("/create", isLoggedIn, (req, res, next) => {
-  res.render("service-create", { isLogNav: isLogNavFn(req) });
+  const injectData = {
+    isLogNav: isLogNavFn(req),
+    navUserData: getNavUserData(req),
+  };
+  res.render("service-create", injectData);
 });
 
 servicesRouter.post("/create", (req, res, next) => {
-  const { name, description, location, duration, category } = req.body;
+  const { name, description, servLocation, duration, category } = req.body;
   const newService = {
     name,
     description,
     giverUser: req.session.currentUser._id,
-    location,
+    servLocation,
     duration,
     category,
     picture: [],
@@ -111,7 +128,7 @@ servicesRouter.post("/create", (req, res, next) => {
   };
   Service.create(newService)
     .then((data) => {
-      res.render("/users/my-profile");
+      res.redirect("/users/my-profile");
     })
     .catch((err) => console.log(err));
 });
@@ -120,19 +137,20 @@ servicesRouter.get("/profile/:id/edit", isLoggedIn, (req, res, next) => {
   const serviceId = req.params.id;
   Service.findById(serviceId)
     .then((foundService) => {
-      const data = {
+      const injectData = {
         isLogNav: isLogNavFn(req),
         service: foundService,
+        navUserData: getNavUserData(req),
       };
-      res.render("service-profile-edit", data);
+      res.render("service-profile-edit", injectData);
     })
     .catch((err) => console.log(err));
 });
 
 servicesRouter.post("/edit/:id", isLoggedIn, (req, res, next) => {
   const serviceId = req.params.id;
-  const { name, description, location, duration, category } = req.body;
-  const incomingData = { name, description, location, duration, category };
+  const { name, description, servLocation, duration, category } = req.body;
+  const incomingData = { name, description, servLocation, duration, category };
   Service.findByIdAndUpdate(serviceId, incomingData, { new: true })
     .then(() => {
       res.redirect(`/services/profile/${serviceId}`);

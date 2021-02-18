@@ -1,5 +1,3 @@
-{{> navbar isLogNav}}
-
 <main id= "service-results">
 <h1>Services search results</h1>
 
@@ -13,7 +11,7 @@
                 <p>Offered by: <a href="/users/profile/{{this.giverUser._id}}">{{this.giverUser.fname}} {{this.giverUser.lname}}</a></p>
                 <br>
                 <p>{{description}}</p>
-                <p>Location: {{location}}</p>
+                <p>Location: {{servLocation}}</p>
                 <p>Duration: {{duration}} hour(s)</p>
                 <p>Category: {{category}}</p>
                 </div>

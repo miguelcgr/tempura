@@ -7,6 +7,35 @@
     
   </head>
   <body>
+
+<nav>
+<div><a href="/"><img src="/img/tempura_logo_white.png" alt="TempuraAppLogo"></a></div>
+
+{{#if navUserData}}
+<div>
+    <ul>
+        {{#if navUserData.notifications}}
+        <li><a href="/swaps/activity-panel">🟡 {{navUserData.notifications}}</a></li>
+        {{else}}
+        <li><a href="/swaps/activity-panel">⚪ {{navUserData.notifications}}</a></li>
+        {{/if}}
+        <li>{{navUserData.balance}} hours</li>
+        <li><a href="/services/create">Add new service</a></li>
+        <li><a href="/users/my-profile">{{navUserData.fname}} {{navUserData.lname}}</a></li>
+        <li><a href="/logout">Logout</a></li>
+    </ul>
+</div>
+</nav>
+{{else}}
+<div>
+    <ul>
+        <li><a href="/login">Log in</a></li>
+        <li><a href="/signup">Sign up</a></li>
+    </ul>
+</div>
+{{/if}}
+</nav>
+
     {{{body}}}
     <br>
     <hr>

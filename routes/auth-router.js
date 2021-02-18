@@ -16,13 +16,26 @@ const saltRounds = 10;
 function isLogNavFn(req) {
   let data;
   if (req.session.currentUser) {
-    data = {
+    /* data = {
       isLogNav: true,
-    };
+    };*/
+    data = true;
   } else {
-    data = {
+    /*data = {
       isLogNav: false,
-    };
+    };*/
+    data = false;
+  }
+
+  return data;
+}
+
+function getNavUserData(req) {
+  let data;
+  if (req.session.currentUser) {
+    data = req.session.currentUser;
+  } else {
+    data = false;
   }
   return data;
 }
@@ -31,6 +44,7 @@ function isLogNavFn(req) {
 router.get("/", (req, res, next) => {
   const injectData = {
     isLogNav: isLogNavFn(req),
+    navUserData: getNavUserData(req),
   };
   res.render("index", injectData);
 });
@@ -43,6 +57,7 @@ router.post("/login", (req, res, next) => {
   const injectData = {
     errorMessage: errorMessage,
     isLogNav: isLogNavFn(req),
+    navUserData: getNavUserData(req),
   };
 
   if (username === "" || password === "") {
@@ -81,6 +96,12 @@ router.post("/signup", (req, res, next) => {
     phone,
     location,
     profilePic,
+    name,
+    description,
+    servLocation,
+    duration,
+    category,
+    picture,
   } = req.body;
 
   const injectData = {
@@ -95,9 +116,7 @@ router.post("/signup", (req, res, next) => {
 
   User.findOne({ username: username }).then((user) => {
     if (user !== null) {
-      res.render("signup", {
-        errorMesage: injectData,
-      });
+      res.render("signup", injectData);
       return;
     }
 

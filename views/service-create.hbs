@@ -1,6 +1,5 @@
-{{> navbar isLogNav}}
-
-  <h2>Create a new service in Tempura</h2>
+<main>
+<h1>Create a new service in Tempura</h1>
 
   <form action='/services/create' method='POST'>
 
@@ -14,7 +13,7 @@
   <!-- <input type='file' name='service-pictures' > -->
 <br>
   <label for=''>Service location</label>
-  <input type='text' name='location' minlength="3" placeholder="Poblenou">
+  <input type='text' name='servLocation' minlength="3" placeholder="Poblenou">
 <br>
   <label for=''>Service duration in hours</label>
   <input type='number' name='duration' value="1" placeholder="1">
@@ -33,3 +32,4 @@
   <button type='submit'>Create service</button>
 
   </form>
+  </main>

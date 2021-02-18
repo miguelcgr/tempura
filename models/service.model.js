@@ -7,7 +7,7 @@ const serviceSchema = new Schema({
   name: { type: String, required: true },
   description: { type: String, required: true },
   giverUser: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
-  location: String,
+  servLocation: String,
   duration: Number, //hours
   category: {
     type: String,

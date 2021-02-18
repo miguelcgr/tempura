@@ -28,10 +28,18 @@ nav ul {
   margin-right: 10px;
 }
 
-nav a {
+nav a,
+li {
   margin-left: 20px;
   color: white;
   text-decoration: none;
+}
+
+nav a:hover {
+  margin-left: 20px;
+  color: white;
+  text-decoration: none;
+  font-weight: 700;
 }
 
 main a:hover {

@@ -20,6 +20,16 @@ function isLogNavFn(req) {
   return data;
 }
 
+function getNavUserData(req) {
+  let data;
+  if (req.session.currentUser) {
+    data = req.session.currentUser;
+  } else {
+    data = false;
+  }
+  return data;
+}
+
 // already in /users/
 
 //public profile
@@ -31,6 +41,7 @@ usersRouter.get("/profile/:id", (req, res, next) => {
       const data = {
         user: user,
         isLogNav: isLogNavFn(req),
+        navUserData: getNavUserData(req),
       };
       res.render("user-profile-public", data);
     })
@@ -45,6 +56,7 @@ usersRouter.get("/my-profile", isLoggedIn, (req, res, next) => {
       const data = {
         user: user,
         isLogNav: isLogNavFn(req),
+        navUserData: getNavUserData(req),
       };
       res.render("user-profile-private", data);
     });
@@ -54,6 +66,7 @@ usersRouter.get("/my-profile/edit", isLoggedIn, (req, res, next) => {
   const data = {
     user: req.session.currentUser,
     isLogNav: isLogNavFn(req),
+    navUserData: getNavUserData(req),
   };
 
   res.render("edit-profile", data);

@@ -23,6 +23,8 @@ function isLogNavFn(req) {
 
 // already in /swaps
 
+// load the activity panel with all the swap information of the user
+
 swapsRouter.get("/activity-panel", isLoggedIn, (req, res, next) => {
   User.findById(req.session.currentUser._id)
     //.populate("swaps.asTaker swaps.asGiver swaps.pastSwaps")
@@ -47,15 +49,18 @@ swapsRouter.get("/activity-panel", isLoggedIn, (req, res, next) => {
       ],
     })
     .then((myUser) => {
-      const data = {
+      const injectData = {
         isLogNav: isLogNavFn(req),
+        navUserData: getNavUserData(req),
         user: myUser,
       };
       req.session.currentUser = myUser;
-      res.render("activity-panel", data);
+      res.render("activity-panel", injectData);
     })
     .catch((err) => console.log(err));
 });
+
+// swap creation
 
 swapsRouter.post("/create/:id", (req, res, next) => {
   const serviceId = req.params.id;
