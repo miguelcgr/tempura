@@ -1,39 +1,46 @@
-<h1>Welcome to Tempura!</h1>
+<main id= "signup">
+<div>
+<h1>Create a new user in Tempura</h1>
 
 <form action='/signup' method='POST' enctype="multipart/form-data">
 
-<h2>Create a new user in Tempura</h2>
-
+<section>
   <label for=''>Username</label>
   <input type='text' name='username' minlength="5" placeholder="miguel123" required>
 
+  <label for=''>Password</label>
+  <input type='password' name='password' minlength="5" required>
+</section>
+<section>
   <label for=''>First Name</label>
   <input type='text' name='fname' minlength="2" placeholder="Miguel" required>
 
   <label for=''>Last name</label>
   <input type='text' name='lname' minlength="2" placeholder="López" required>
-
+</section>
+<section>
   <label for=''>email</label>
   <input type='email' name='email' minlength="5" placeholder="miguel@tempura.org" required>
 
-  <label for=''>Password</label>
-  <input type='password' name='password' minlength="5" required>
-
   <label for=''>Phone</label>
   <input type='text' name='phone' minlength="9" placeholder="+34612345678" required>
-
+</section>
+<section>
   <label for=''>Location</label>
   <input type='text' name='location' minlength="4" placeholder="Poblenou" required>
 
   <label for=''>Add profile picture</label>
  <input type="file" name="picture" id=""/>
-
+</section>
+<br>
   <button type='submit'>Sign up</button>
 </form>
-
-<h4>If you are already a member of the Tempura community:</h4>
+<br><br><br><br>
+<h3>If you are already a member of the Tempura community:</h3>
 <a href="/login" class="button">Log in</a>
 
 {{#if errorMessage}}
 <p style="color:red; font-weight:700">{{errorMessage}}</p>
 {{/if}}
+</div>
+</main>
