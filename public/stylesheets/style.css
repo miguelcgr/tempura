@@ -318,14 +318,6 @@ footer {
   color: black;
 }
 
-.hide {
-  visibility: hidden;
-}
-
-.show {
-  visibility: visible;
-}
-
 #menu {
   display: flex;
   flex-direction: column;
@@ -333,7 +325,8 @@ footer {
   z-index: 10;
   right: 0;
   background-color: #cf2f2a;
-  height: 80px;
+  height: 140px;
+  width: 150px;
   text-align: right;
   padding-right: 20px;
 }
@@ -342,11 +335,27 @@ footer {
   list-style: none;
 }
 
+#menu li {
+  margin-top: 10px;
+}
+
 #menu a {
   text-decoration: none;
   color: white;
 }
 
 #menu a:hover {
+  font-weight: 700;
+}
+
+.hide {
+  visibility: hidden;
+}
+
+#dropdown:hover {
+  font-weight: 700;
+}
+
+.dropdown-js {
   font-weight: 700;
 }

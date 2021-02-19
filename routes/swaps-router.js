@@ -18,6 +18,10 @@ function getNavUserData(req) {
 }
 
 // already in /swaps
+// SWAPS STATUS
+// status1: request by Taker, waiting for Giver to accept
+// status2: accept by Giver, waiting for Taker to complete
+// status3: rejected by Giver, both can delete
 
 // load the activity panel with all the swap information of the user
 
@@ -144,7 +148,7 @@ swapsRouter.get("/:id/accept", (req, res, next) => {
       return pr;
     })
     .then(() => {
-      User.findByIdAndUpdate(
+      const pr = User.findByIdAndUpdate(
         takerId,
         { $inc: { notifications: 1 } },
         { new: true }
@@ -225,6 +229,7 @@ swapsRouter.get("/:id/complete", (req, res, next) => {
           "swaps.asTaker": updatedAsTakerSwapsArr,
           "swaps.pastSwaps": updatedPastSwapsArr,
           balance: updatedBalance,
+          $inc: { notifications: -1 },
         },
         { new: true }
       );
@@ -287,6 +292,7 @@ swapsRouter.get("/:id/delete-as-taker", (req, res, next) => {
         giverId,
         {
           "swaps.asGiver": updatedGiverArr,
+          $inc: { notifications: -1 },
         },
         { new: true }
       );
@@ -340,6 +346,7 @@ swapsRouter.get("/:id/delete-as-giver", (req, res, next) => {
         giverId,
         {
           "swaps.asGiver": updatedGiverArr,
+          $inc: { notifications: -1 },
         },
         { new: true }
       );
