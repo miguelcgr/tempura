@@ -12,7 +12,7 @@ function setLocals(req, res, next) {
   if (req.session.currentUser) {
     User.findById(req.session.currentUser._id)
       .then((myUser) => {
-        res.locals.userData = myUser;
+        req.session.currentUser = myUser;
       })
       .catch((err) => console.log(err));
   }
