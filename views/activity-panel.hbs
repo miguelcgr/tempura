@@ -1,21 +1,32 @@
 
 <main id="activity-panel">
+
+  <header>
 <h1>Activity panel</h1>
-<h3>Your user: {{user.username}}</h3>
+<h3><em>User: {{user.username}}</em></h3>
+  </header>
 <br>
+<br> <!-- asGiver --->
+<div id="navbuttons">
+  
+<h2>Requested Swaps</h2>  <a href="#pending"><h2 class = "grey">Pending Swaps</h2></a> <a href="#past"><h2 class = "grey">Past Swaps</h2></a> 
+</div>
 <br>
-<h3>Requested Swaps</h3>  <!-- asGiver --->
+<section>
 <div>
 {{#each user.swaps.asGiver}}
 <article>
   <img src="{{this.service.picture}}" alt="{{this.service.name}}">
+<br><br>
   <a href="/services/profile/{{this.service._id}}"><h3>{{this.service.name}}</strong></h3></a>
+  <div>
   <p>{{this.takerUser.fname}} {{this.takerUser.lname}} is asking for this service.</p>
+  <br><br>
   <p><em>Petition date: {{this.creationDate}}</em></p>
 
   {{#if this.status1}}
-    <a href="/swaps/{{this._id}}/accept">Accept</a>
-    <a href="/swaps/{{this._id}}/reject">Reject</a>
+    <a href="/swaps/{{this._id}}/accept" class="but">Accept</a>
+    <a href="/swaps/{{this._id}}/reject" class="but">Reject</a>
   {{/if}}
 
   {{#if this.status2}}
@@ -28,17 +39,28 @@
     <a href="/swaps/{{this._id}}/delete-as-giver" class = "red">Delete</a>
     <a href="/swaps/{{this._id}}/reconsider">Reconsider</a>
   {{/if}}
+  </div>
 </article>
 {{/each}}
 </div>
+</section>
 <br>
-<h3>Pending Swaps</h3>    <!-- asTaker --->
+
+
+
+<h2 id="pending">Pending Swaps</h2>    <!-- asTaker --->
+  <br>
+<section>
 <div>
 {{#each user.swaps.asTaker}}
 <article>
   <img src="{{this.service.picture}}" alt="{{this.service.name}}">
+  <br><br>
+  <div>
   <a href="/services/profile/{{this.service._id}}"><h3>{{this.service.name}}</strong></h3></a>
-  <p>You asked {{this.giverUser.fname}} {{this.giverUser.lname}}</p>
+  <div>
+  <p>You asked {{this.takerUser.fname}} {{this.takerUser.lname}}.</p>
+  <br><br>
   <p><em>Petition date: {{this.creationDate}}</em></p>
 
   {{#if this.status1}}
@@ -49,7 +71,7 @@
     <p class = "green"><strong>Accepted!</strong></p>
     <p>Call {{this.giverUser.fname}} at {{this.giverUser.phone}}!</p>
     <p>If you already received the service, please confirm:</p>
-    <a href="/swaps/{{this._id}}/complete">Confirm completion</a>
+    <a href="/swaps/{{this._id}}/complete" class="but">Confirm completion</a>
 
   {{/if}}
 
@@ -58,21 +80,28 @@
     <a href="/swaps/{{this._id}}/delete-as-taker">Delete permanently</a>
   {{/if}}
 
+  </div>
 </article>
 {{/each}}
 </div>
+</section>
 <br>
-<h3>Past Swaps</h3>
+<h2 id="past">Past Swaps</h2>
+  <br>
+<section>
 <div>
 {{#each user.swaps.pastSwaps}}
 <article>
   <img src="{{this.service.picture}}" alt="{{this.service.name}}">
+  <br><br>
+  <div>
   <a href="/services/profile/{{this.service._id}}"><h3>{{this.service.name}}</strong></h3></a>
   <p>Host: {{this.giverUser.fname}} {{this.giverUser.lname}}</p>
   <p>Guest: {{this.takerUser.fname}} {{this.takerUser.lname}}</p>
   <p><em>Finished on: {{this.takerConfirmationTime}}</em></p>
+  </div>
 </article>
 {{/each}}
 </div>
-
+</section>
 </main>
