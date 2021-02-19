@@ -21,7 +21,7 @@ const userSchema = new Schema({
     type: String,
     default: "https://cdn.onlinewebfonts.com/svg/img_329115.png",
   },
-  joinDate: { type: Date, default: new Date() },
+  joinDate: { type: Date, default: new Date().toDateString },
 });
 
 const User = mongoose.model("User", userSchema);

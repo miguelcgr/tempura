@@ -28,7 +28,7 @@ const serviceSchema = new Schema({
       default: defaultImgUrl,
     },
   ],
-  dateAdded: { type: Date, default: new Date() },
+  dateAdded: { type: Date, default: new Date()},
 });
 
 const Service = mongoose.model("Service", serviceSchema);
