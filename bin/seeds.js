@@ -331,7 +331,7 @@ const initialServices = [
   },
   {
     name: "Pole dance class",
-    description: "I am a world champion pole dancer, come elarn with me",
+    description: "I am a world champion pole dancer, come learn with me",
     giverUser: "6026b09ada76808f8e5fe556",
     servLocation: "Hospitalet",
     duration: 1,

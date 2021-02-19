@@ -98,7 +98,7 @@ servicesRouter.get("/create", isLoggedIn, (req, res, next) => {
   res.render("service-create", injectData);
 });
 
-servicesRouter.post("/create", (req, res, next) => {
+servicesRouter.post("/create", fileUploader.single("service-picture"), (req, res, next) => {
   const { name, description, servLocation, duration, category } = req.body;
   const newService = {
     name,
