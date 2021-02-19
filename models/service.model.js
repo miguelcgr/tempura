@@ -7,7 +7,7 @@ const serviceSchema = new Schema({
   name: { type: String, required: true },
   description: { type: String, required: true },
   giverUser: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
-  location: String,
+  servLocation: String,
   duration: Number, //hours
   category: {
     type: String,
@@ -28,7 +28,7 @@ const serviceSchema = new Schema({
       default: defaultImgUrl,
     },
   ],
-  dateAdded: { type: Date, default: new Date() },
+  dateAdded: { type: Date, default: new Date()},
 });
 
 const Service = mongoose.model("Service", serviceSchema);

@@ -1,6 +1,4 @@
-{{> navbar isLogNav}}
 <main id= "service-profile">
-
     <section>
         <div>
         <img src={{service.picture.[0]}} alt="{{service.name}}">
@@ -11,10 +9,10 @@
             <h3>{{service.description}}</h3>
             <br><br>
             <p>Date added: {{service.dateAdded}}</p>
-            <p>Location: {{service.location}}</p>
+            <p>Location: {{service.servLocation}}</p>
             <p>Duration: {{service.duration}} hours</p>
             <p>Category: {{service.category}}</p>
-            <p>Date added: {{service.dateAddeed}}</p>
+            
         </div>
     </section>
 
@@ -26,5 +24,4 @@
             <a href="/signup" class="button">sign up</a>
         </div>
     </div>
-
 </main>

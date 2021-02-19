@@ -1,5 +1,3 @@
-{{> navbar isLogNav}}
-
 <main id = "user-profile">
 <h1>{{user.fname}} {{user.lname}}</h1>
 
@@ -14,7 +12,7 @@
       <p><strong>Stats:</strong></p>
       <p>User since: {{user.joinDate}} </p>
     </div>
-    <a href="/users/my-profile/edit" class="button">Edit profile</a>
+  
     </section>
 
     <div>
@@ -27,7 +25,7 @@
               <h3><a href="/services/profile/{{this._id}}">{{this.name}}</a></h3>
               <br>
               <p>{{this.description}}</p>
-              <p>Location: {{this.location}}</p>
+              <p>Location: {{this.servLocation}}</p>
               <p>Duration: {{this.duration}} hour(s)</p>
               <p>Category: {{this.category}}</p>
             </div>
@@ -35,6 +33,4 @@
           {{/each}}
     </ul>
     </div>
-
-
 </main>

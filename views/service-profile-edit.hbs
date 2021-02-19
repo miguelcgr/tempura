@@ -1,4 +1,3 @@
-{{> navbar isLogNav}}
 <main id= "service-profile">
 <h1>Edit your service</h1>
 
@@ -12,7 +11,7 @@
   <input type='text' name='description' minlength="3" value="{{service.description}}">
 <br>
   <label for=''>Service location</label>
-  <input type='text' name='location' minlength="3" value="{{location.name}}">
+  <input type='text' name='servLocation' minlength="3" value="{{location.name}}">
 <br>
   <label for=''>Service duration in hours</label>
   <input type='number' name='duration' value="{{service.duration}}" placeholder="1">

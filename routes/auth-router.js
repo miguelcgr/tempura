@@ -14,16 +14,12 @@ const bcrypt = require("bcrypt");
 const saltRounds = 10;
 
 // function that chooses which navbar to show
-function isLogNavFn(req) {
+function getNavUserData(req) {
   let data;
   if (req.session.currentUser) {
-    data = {
-      isLogNav: true,
-    };
+    data = req.session.currentUser;
   } else {
-    data = {
-      isLogNav: false,
-    };
+    data = false;
   }
   return data;
 }
@@ -31,7 +27,7 @@ function isLogNavFn(req) {
 // General routes: index, log in, sign up & log out
 router.get("/", (req, res, next) => {
   const injectData = {
-    isLogNav: isLogNavFn(req),
+    navUserData: getNavUserData(req),
   };
   res.render("index", injectData);
 });
@@ -43,7 +39,7 @@ router.post("/login", (req, res, next) => {
 
   const injectData = {
     errorMessage: errorMessage,
-    isLogNav: isLogNavFn(req),
+    navUserData: getNavUserData(req),
   };
 
   if (username === "" || password === "") {
@@ -72,66 +68,75 @@ router.post("/login", (req, res, next) => {
 
 router.get("/signup", (req, res, next) => res.render("signup"));
 
-router.post("/signup", (req, res, next) => {
-  const {
-    username,
-    password,
-    fname,
-    lname,
-    email,
-    phone,
-    location,
-    profilePic,  //: req.file.path,
-  } = req.body;
-
-  const injectData = {
-    errorMessage: errorMessage,
-    isLogNav: isLogNavFn(req),
-  };
-
-  if (username === "" || password === "") {
-    res.render("signup", injectData);
-    return;
-  }
-
-  User.findOne({ username: username }).then((user) => {
-    if (user !== null) {
-      res.render("signup", {
-        errorMesage: injectData,
-      });
-      return;
-    }
-
-    const salt = bcrypt.genSaltSync(saltRounds);
-    const hiddenPassword = bcrypt.hashSync(password, salt);
-
-    const newUser = {
+router.post(
+  "/signup",
+  fileUploader.single("picture"),
+  // fileUploader.single("profilePic"),
+  (req, res, next) => {
+    const {
       username,
+      password,
       fname,
       lname,
       email,
-      password: hiddenPassword,
       phone,
       location,
       profilePic,
-      joinDate: new Date(),
+      name,
+      description,
+      servLocation,
+      duration,
+      category,
+      picture,
+    } = req.body;
+
+    const injectData = {
+      errorMessage: errorMessage,
     };
 
-    User.create(newUser)
-      .then((user) => {
-        User.findById(user._id)
-          .populate("swaps.asTaker")
-          .then((populatedUser) => {
-            req.session.currentUser = populatedUser;
+    if (username === "" || password === "") {
+      res.render("signup", injectData);
+      return;
+    }
 
-            res.redirect("/");
-          });
-      })
-      .catch((err) => {
+    User.findOne({ username: username }).then((user) => {
+      if (user !== null) {
         res.render("signup", injectData);
-      });
-  });
-});
+        return;
+      }
+
+      const salt = bcrypt.genSaltSync(saltRounds);
+      const hiddenPassword = bcrypt.hashSync(password, salt);
+
+      const newUser = {
+        username,
+        fname,
+        lname,
+        email,
+        password: hiddenPassword,
+        phone,
+        location,
+        profilePic: req.file.path,
+        joinDate: new Date(),
+      };
+
+      User.create(newUser)
+        .then((user) => {
+          const pr = User.findById(user._id).populate("swaps.asTaker");
+          return pr;
+        })
+        .then((populatedUser) => {
+          req.session.currentUser = populatedUser;
+          res.render("service-create", {
+            welcomeMessage: true,
+          });
+        })
+        .catch((err) => {
+          res.render("signup", injectData);
+        });
+    });
+  }
+);
 
 router.get("/logout", (req, res, next) => {
   req.session.destroy((err) => {

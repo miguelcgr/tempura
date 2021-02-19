@@ -2,16 +2,53 @@
 <html>
   <head>
     <title>Tempura - Time Bank App</title>
-    <link rel="shortcut icon" type="image/jpg" href="./../public/img/tempurafav.ico"/>
+    <link rel="shortcut icon" type="image/jpg" href="/img/tempurafav.ico"/>
     <link rel='stylesheet' href='/stylesheets/style.css' />
     
   </head>
   <body>
+
+<nav>
+  <div><a href="/"><img src="/img/tempura_logo_white.png" alt="TempuraAppLogo"></a></div>
+
+  {{#if navUserData}}
+  <div>
+      <ul>
+          {{#if navUserData.notifications}}
+          <li><a href="/swaps/activity-panel">🟡 {{navUserData.notifications}}</a></li>
+          {{else}}
+          <li><a href="/swaps/activity-panel">⚪ {{navUserData.notifications}}</a></li>
+          {{/if}}
+          <li>{{navUserData.balance}} hours</li>
+          <li id="dropdown">{{navUserData.fname}} {{navUserData.lname}}</li>
+      </ul>
+  </div>
+  {{else}}
+  <div>
+      <ul>
+          <li><a href="/login">Log in</a></li>
+          <li><a href="/signup">Sign up</a></li>
+      </ul>
+  </div>
+  {{/if}}
+</nav>
+{{#if navUserData}}
+<div id="menu">
+  <ul>
+    <li><a href="/users/my-profile">My profile</a></li>
+    <li><a href="/swaps/activity-panel">Activity Panel</a></li>
+    <li><a href="/services/create">Add new service</a></li>
+    <li><a href="/logout">Logout</a></li>
+</ul>
+</div>
+{{/if}}
     {{{body}}}
     <br>
     <hr>
 <footer>
     <p>Tempura <span class="copyleft">&copy;</span> 2021</p>
 </footer>
+
+<script src="/js/navbar.js"></script>
   </body>
 </html>

@@ -1,17 +1,27 @@
-{{> navbar this}}
+<main id= "login">
+<div>
 
-<h1>login</h1>
-<a href="/">go back to home</a>
+<h1>Log in</h1>
+
 <form action='/login' method='POST'>
+<br>
   <label for=''>Username</label>
+  <br>
   <input type='text' name='username' minlength="5" required>
-
+<br>
   <label for=''>Password</label>
+ <br>
   <input type='password' name='password' minlength="5" required>
 
-  <button type='submit'>Submit</button>
+  <button type='submit'>Log in</button>
 </form>
+<br>
+<br>
+<h3>Not a member of the Tempura community?</h4>
+<a href="/signup" class="button">sign up</a>
 
 {{#if errorMessage}}
 <p style="color:red; font-weight:700">{{errorMessage}}</p>
 {{/if}}
+</div>
+</main>

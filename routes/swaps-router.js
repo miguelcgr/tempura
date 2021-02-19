@@ -7,21 +7,23 @@ const Swap = require("../models/swap.model");
 
 const { isLoggedIn } = require("../util/middleware");
 
-function isLogNavFn(req) {
+function getNavUserData(req) {
   let data;
   if (req.session.currentUser) {
-    data = {
-      isLogNav: true,
-    };
+    data = req.session.currentUser;
   } else {
-    data = {
-      isLogNav: false,
-    };
+    data = false;
   }
   return data;
 }
 
 // already in /swaps
+// SWAPS STATUS
+// status1: request by Taker, waiting for Giver to accept
+// status2: accept by Giver, waiting for Taker to complete
+// status3: rejected by Giver, both can delete
+
+// load the activity panel with all the swap information of the user
 
 swapsRouter.get("/activity-panel", isLoggedIn, (req, res, next) => {
   User.findById(req.session.currentUser._id)
@@ -47,15 +49,17 @@ swapsRouter.get("/activity-panel", isLoggedIn, (req, res, next) => {
       ],
     })
     .then((myUser) => {
-      const data = {
-        isLogNav: isLogNavFn(req),
+      const injectData = {
+        navUserData: getNavUserData(req),
         user: myUser,
       };
       req.session.currentUser = myUser;
-      res.render("activity-panel", data);
+      res.render("activity-panel", injectData);
     })
     .catch((err) => console.log(err));
 });
+
+// swap creation
 
 swapsRouter.post("/create/:id", (req, res, next) => {
   const serviceId = req.params.id;
@@ -102,16 +106,10 @@ swapsRouter.post("/create/:id", (req, res, next) => {
         giverUserId,
         {
           $push: { "swaps.asGiver": newSwapId },
+          $inc: { notifications: 1 },
         },
         { new: true }
       );
-      return pr;
-    })
-    .then((updatedGiver) => {
-      const newNotification = updatedGiver.notifications + 1;
-      const pr = User.findByIdAndUpdate(giverUserId, {
-        notifications: newNotification,
-      });
       return pr;
     })
     .then(() => {
@@ -126,12 +124,37 @@ swapsRouter.post("/create/:id", (req, res, next) => {
 // giver actions
 swapsRouter.get("/:id/accept", (req, res, next) => {
   const swapId = req.params.id;
-  Swap.findByIdAndUpdate(swapId, {
-    giverAccept: true,
-    giverAcceptTime: new Date(),
-    status1: false,
-    status2: true,
-  })
+  let giverId;
+  let takerId;
+
+  Swap.findByIdAndUpdate(
+    swapId,
+    {
+      giverAccept: true,
+      giverAcceptTime: new Date(),
+      status1: false,
+      status2: true,
+    },
+    { new: true }
+  )
+    .then((updatedSwap) => {
+      giverId = updatedSwap.giverUser;
+      takerId = updatedSwap.takerUser;
+      const pr = User.findByIdAndUpdate(
+        giverId,
+        { $inc: { notifications: -1 } },
+        { new: true }
+      );
+      return pr;
+    })
+    .then(() => {
+      const pr = User.findByIdAndUpdate(
+        takerId,
+        { $inc: { notifications: 1 } },
+        { new: true }
+      );
+      return pr;
+    })
     .then(() => {
       res.redirect("/swaps/activity-panel");
     })
@@ -206,6 +229,7 @@ swapsRouter.get("/:id/complete", (req, res, next) => {
           "swaps.asTaker": updatedAsTakerSwapsArr,
           "swaps.pastSwaps": updatedPastSwapsArr,
           balance: updatedBalance,
+          $inc: { notifications: -1 },
         },
         { new: true }
       );
@@ -268,6 +292,7 @@ swapsRouter.get("/:id/delete-as-taker", (req, res, next) => {
         giverId,
         {
           "swaps.asGiver": updatedGiverArr,
+          $inc: { notifications: -1 },
         },
         { new: true }
       );
@@ -321,6 +346,7 @@ swapsRouter.get("/:id/delete-as-giver", (req, res, next) => {
         giverId,
         {
           "swaps.asGiver": updatedGiverArr,
+          $inc: { notifications: -1 },
         },
         { new: true }
       );
