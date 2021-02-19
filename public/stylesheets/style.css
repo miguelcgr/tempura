@@ -421,22 +421,6 @@ footer {
   justify-content: center;
 }
 
-#activity-panel div {
-  display: flex;
-  flex-wrap: wrap;
-}
-
-#activity-panel img {
-  width: 300px;
-  height: auto;
-}
-
-#activity-panel article {
-  width: 320px;
-  padding: 15px;
-  margin: 10px;
-}
-
 .yellow {
   font-weight: 900;
   color: rgb(248, 190, 31);
@@ -454,6 +438,9 @@ footer {
 
 .tempura-color {
   color: #cf2f2a;
+}
+.grey {
+  color: #7e7e7e;
 }
 
 #service-results {
@@ -528,4 +515,64 @@ footer {
 
 .dropdown-js {
   font-weight: 700;
+}
+
+#activity-panel {
+  margin-left: 20px;
+  margin-top: 40px;
+  margin-bottom: 60px;
+}
+
+#activity-panel h1 {
+  font-size: 3rem;
+  font-weight: 900;
+}
+
+#activity-panel section {
+  background-color: rgb(226, 226, 226);
+  min-height: 300px;
+  max-width: 95vw;
+  border-radius: 5px;
+  margin-bottom: 30px;
+}
+
+#activity-panel div {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+#activity-panel img {
+  width: 250px;
+  height: auto;
+  border-radius: 4px;
+}
+
+#activity-panel article {
+  width: 300px;
+  padding: 15px;
+  margin: 10px;
+  background-color: white;
+  border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+#activity-panel .but {
+  padding: 5px 11px;
+  margin-top: 20px;
+  margin-right: 10px;
+  background-color: #cf2f2a;
+  border-radius: 3px;
+  color: white;
+  text-decoration: none;
+}
+
+#navbuttons {
+  display: flex;
+}
+
+#navbuttons a {
+  margin-left: 30px;
+  text-decoration: none;
 }
